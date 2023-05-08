@@ -5,7 +5,7 @@ type FilmCardProps = {
   cardToDisplay: FilmType;
 }
 
-function FilmCard({cardToDisplay }: FilmCardProps): JSX.Element {
+function FilmCard({cardToDisplay}: FilmCardProps): JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
