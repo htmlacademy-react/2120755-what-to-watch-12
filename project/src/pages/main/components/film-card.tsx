@@ -1,5 +1,6 @@
-import Header from '../../../components/header';
+// import Header from '../../../components/header';
 import { FilmType } from '../../../types';
+import Header from '../../../components/header';
 
 type FilmCardProps = {
   cardToDisplay: FilmType;
@@ -11,7 +12,6 @@ function FilmCard({cardToDisplay}: FilmCardProps): JSX.Element {
       <div className="film-card__bg">
         <img src={cardToDisplay.backgroundImage} alt="The Grand Budapest Hotel" />
       </div>
-
       <h1 className="visually-hidden">WTW</h1>
       <Header/>
       <div className="film-card__wrap">
@@ -19,14 +19,12 @@ function FilmCard({cardToDisplay}: FilmCardProps): JSX.Element {
           <div className="film-card__poster">
             <img src={cardToDisplay.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
           </div>
-
           <div className="film-card__desc">
             <h2 className="film-card__title">{cardToDisplay.name}</h2>
             <p className="film-card__meta">
               <span className="film-card__genre">{cardToDisplay.genre}</span>
               <span className="film-card__year">{cardToDisplay.released}</span>
             </p>
-
             <div className="film-card__buttons">
               <button className="btn btn--play film-card__button" type="button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
