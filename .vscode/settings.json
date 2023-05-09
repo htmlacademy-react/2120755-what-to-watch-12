@@ -1,0 +1,33 @@
+{
+    "editor.formatOnSave": true,
+    "prettier.tabWidth": 2,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "prettier.semi": true,
+    "prettier.bracketSameLine": true,
+    "prettier.printWidth": 100,
+    "workbench.colorTheme": "Default Dark+ Experimental",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "vscode-pets.petColor": "black",
+    "vscode-pets.petType": "rubber-duck",
+    "vscode-pets.theme": "forest",
+    "vscode-pets.throwBallWithMouse": true,
+    "window.zoomLevel": 0,
+    "vscodeGoogleTranslate.preferredLanguage": "English",
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "eslint.workingDirectories": [
+        "./project"
+    ],
+    "liveServer.settings.port": 5501
+}

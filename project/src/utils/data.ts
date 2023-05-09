@@ -17,8 +17,16 @@ const rating = {
 
 const filmNavigationOptions = ['Overview' , 'Details' , 'Reviews'];
 
+const locationToClassMap = {
+  '/mylist': 'user-page__head',
+  '/login': 'user-page__head',
+  '/films/:id': 'film-card__head',
+  '/': 'film-card__head'
+};
+
 export {
   genres,
   rating,
-  filmNavigationOptions
+  filmNavigationOptions,
+  locationToClassMap
 };

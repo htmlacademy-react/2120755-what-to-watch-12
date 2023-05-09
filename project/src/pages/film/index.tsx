@@ -1,5 +1,6 @@
 import CatalogList from '../../components/catalog-list';
 import Footer from '../../components/footer';
+import Header from '../../components/header';
 // import Details from './components/details';
 import FilmNavigation from './components/film-navigation';
 // import Overview from './components/overview';
@@ -15,28 +16,7 @@ function Film(): JSX.Element {
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
-
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
-
+          <Header/>
           <div className="film-card__wrap">
             <div className="film-card__desc">
               <h2 className="film-card__title">The Grand Budapest Hotel</h2>
@@ -44,7 +24,6 @@ function Film(): JSX.Element {
                 <span className="film-card__genre">Drama</span>
                 <span className="film-card__year">2014</span>
               </p>
-
               <div className="film-card__buttons">
                 <button className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -64,7 +43,6 @@ function Film(): JSX.Element {
             </div>
           </div>
         </div>
-
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">

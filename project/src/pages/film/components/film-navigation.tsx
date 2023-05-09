@@ -9,9 +9,6 @@ function FilmNavigation(): JSX.Element {
             <li className="film-nav__item" key={option}>
               <a href="#" className="film-nav__link">{option}</a>
             </li>))}
-        {/* <li className="film-nav__item film-nav__item--active">
-          <a href="#" className="film-nav__link">Details</a>
-        </li> */}
       </ul>
     </nav>
   );
