@@ -1,29 +1,28 @@
-// import Header from '../../../components/header';
-import { FilmType } from '../../../types';
 import Header from '../../../components/header';
+import { FilmType } from '../../../types';
 
-type FilmCardProps = {
-  cardToDisplay: FilmType;
+type PromoFilmProps = {
+  promoToDisplay: FilmType;
 }
 
-function FilmCard({cardToDisplay}: FilmCardProps): JSX.Element {
+function PromoFilm({promoToDisplay}: PromoFilmProps): JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src={cardToDisplay.backgroundImage} alt="The Grand Budapest Hotel" />
+        <img src={promoToDisplay.backgroundImage} alt="The Grand Budapest Hotel" />
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <Header/>
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src={cardToDisplay.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            <img src={promoToDisplay.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
           </div>
           <div className="film-card__desc">
-            <h2 className="film-card__title">{cardToDisplay.name}</h2>
+            <h2 className="film-card__title">{promoToDisplay.name}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">{cardToDisplay.genre}</span>
-              <span className="film-card__year">{cardToDisplay.released}</span>
+              <span className="film-card__genre">{promoToDisplay.genre}</span>
+              <span className="film-card__year">{promoToDisplay.released}</span>
             </p>
             <div className="film-card__buttons">
               <button className="btn btn--play film-card__button" type="button">
@@ -46,4 +45,4 @@ function FilmCard({cardToDisplay}: FilmCardProps): JSX.Element {
     </section>
   );
 }
-export default FilmCard;
+export default PromoFilm;

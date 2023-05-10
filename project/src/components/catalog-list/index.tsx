@@ -1,14 +1,14 @@
 import Card from '../card';
-import { mockFilms } from '../../mocks/mock-films';
+import { FilmType } from '../../types';
 
 type CatalogListProps = {
-  amountToShow: number;
+  cardsToShow: FilmType[];
 }
 
-function CatalogList({amountToShow}: CatalogListProps): JSX.Element {
+function CatalogList({cardsToShow}: CatalogListProps): JSX.Element {
   return (
     <div className="catalog__films-list">
-      {mockFilms.slice(0, amountToShow).map((film)=> <Card name={film.name} preview={film.previewImage} key={film.id}/>)}
+      {cardsToShow.slice(0, 20).map((film)=> <Card name={film.name} preview={film.previewImage} id={film.id} key={film.id} />)}
     </div>
   );
 }

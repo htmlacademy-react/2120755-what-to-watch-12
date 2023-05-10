@@ -7,8 +7,15 @@ import Player from '../../pages/player';
 import SignIn from '../../pages/signin';
 import NotFoundPage from '../not-found';
 import ProtectedRoute from '../protected-route';
+import { FilmType } from '../../types';
 
-function App(): JSX.Element {
+type AppProps = {
+  filmsToShow: FilmType[];
+  promoToShow: FilmType;
+  liklyFilmsToShow: FilmType[];
+};
+
+function App({ filmsToShow, promoToShow, liklyFilmsToShow }: AppProps): JSX.Element {
 
   return(
     <Routes>
@@ -16,15 +23,15 @@ function App(): JSX.Element {
         path='/mylist'
         element={
           <ProtectedRoute
-            element={<MyList/>}
-            loggedIn={false}
+            element={<MyList filmsOnMyList={filmsToShow}/>}
+            loggedIn
           />
         }
       />
-      <Route path='/' element={<Main/>}/>
-      <Route path='/films/:id' element={<Film/>}/>
-      <Route path='films/:id/review' element={<AddReview/>}/>
-      <Route path='/player/:id' element={<Player/>}/>
+      <Route path='/' element={<Main filmsOnMain={filmsToShow} promoOnMain={promoToShow}/>}/>
+      <Route path='/films/:id' element={<Film choosenFilms={filmsToShow} liklyFilms={liklyFilmsToShow}/>}/>
+      <Route path='films/:id/review' element={<AddReview choosenFilms={filmsToShow}/>}/>
+      <Route path='/player/:id' element={<Player choosenFilms={filmsToShow}/>}/>
       <Route path='/login' element={<SignIn/>}/>
       <Route path='/*' element={<NotFoundPage/>}/>
     </Routes>
