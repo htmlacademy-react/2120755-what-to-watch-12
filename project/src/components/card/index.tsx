@@ -8,9 +8,7 @@ type CardProps = {
 }
 
 function Card({name, preview, id}: CardProps) {
-  const [activeCard, setActiveCard] = useState(0);
-  // eslint-disable-next-line no-console
-  console.log(activeCard);
+  const [, setActiveCard] = useState(0);
 
   return (
 

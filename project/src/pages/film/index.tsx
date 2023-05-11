@@ -29,11 +29,12 @@ function Film({choosenFilms, liklyFilms}: FilmProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={choosenFilm.posterImage} alt={choosenFilm.name} width="218" height="327" />
+              <img src={choosenFilm.posterImage} alt={`${choosenFilm.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
               <FilmNavigation/>
+              {/* Тут будет Tabs */}
               {/* <Overview/> */}
               {/* <Details/> */}
               <Reviews/>

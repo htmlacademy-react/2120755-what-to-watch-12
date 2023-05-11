@@ -1,7 +1,12 @@
+import { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import { locationToClassMap } from '../../utils/data';
 
-function Header(): JSX.Element {
+type HeaderProps = {
+  children?: ReactNode;
+};
+
+function Header({children}: HeaderProps): JSX.Element {
   const currentLocation = useLocation();
   const locationClassNames = Object.entries(locationToClassMap)
     .filter(([location]) => currentLocation.pathname === location)
@@ -17,24 +22,7 @@ function Header(): JSX.Element {
           <span className="logo__letter logo__letter--3">W</span>
         </a>
       </div>
-
-      {currentLocation.pathname === '/films/:id/review' ?
-        <nav className="breadcrumbs">
-          <ul className="breadcrumbs__list">
-            <li className="breadcrumbs__item">
-              <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
-            </li>
-            <li className="breadcrumbs__item">
-              <a className="breadcrumbs__link">Add review</a>
-            </li>
-          </ul>
-        </nav>
-        : null}
-
-      {currentLocation.pathname === '/mylist' ?
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
-        : null}
-
+      {children}
       {currentLocation.pathname !== '/login' ?
         <ul className="user-block">
           <li className="user-block__item">

@@ -1,5 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FilmType } from '../../types';
+import NotFoundPage from '../../components/not-found';
 
 type AddReview = {
   choosenFilms: FilmType[];
@@ -7,13 +8,31 @@ type AddReview = {
 
 function Player({choosenFilms}: AddReview): JSX.Element {
   const filmId = Number(useParams().id);
-  const choosenFilm: FilmType | undefined = choosenFilms.find((film) => film.id === filmId);
+  const choosenFilm = choosenFilms.find((film) => film.id === filmId);
+
+
+  function formatTime(totalMinutes: number | undefined ): string | null {
+    if (totalMinutes === undefined) {
+      return null;
+    }
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    const seconds = Math.floor((totalMinutes % 1) * 60);
+    const paddedHours = hours.toString().padStart(2);
+    const paddedMinutes = minutes.toString().padStart(2, '0');
+    const paddedSeconds = seconds.toString().padStart(2, '0');
+    return `${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
+  }
+
+  if (choosenFilm === undefined) {
+    return <NotFoundPage/>;
+  }
 
   return (
     <div className="player">
-      <video src={choosenFilm?.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={choosenFilm?.videoLink} className="player__video" poster={choosenFilm?.backgroundImage} autoPlay></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <Link to={`/films/${choosenFilm?.id}`} type="button" className="player__exit" style={{textDecoration: 'none'}}>Exit</Link>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -21,7 +40,7 @@ function Player({choosenFilms}: AddReview): JSX.Element {
             <progress className="player__progress" value="30" max="100"></progress>
             <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{formatTime(choosenFilm?.runTime)}</div>
         </div>
 
         <div className="player__controls-row">
