@@ -1,4 +1,4 @@
-import Footer from '../../components/footer';
+import Footer from '../../components/footer/footer';
 import Catalog from './components/catalog';
 import PromoFilm from './components/promo-film';
 import { FilmType } from '../../types';

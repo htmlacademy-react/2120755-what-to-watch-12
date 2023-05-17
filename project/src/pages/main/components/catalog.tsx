@@ -1,4 +1,4 @@
-import CatalogList from '../../../components/catalog-list';
+import CatalogList from '../../../components/catalog-list/catalog-list';
 import { useState } from 'react';
 import { genres } from '../../../utils/data';
 import { FilmType } from '../../../types';

@@ -1,6 +1,6 @@
-import CatalogList from '../../components/catalog-list';
-import Footer from '../../components/footer';
-import Header from '../../components/header';
+import CatalogList from '../../components/catalog-list/catalog-list';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
 import { FilmType } from '../../types';
 
 type MyListProps = {

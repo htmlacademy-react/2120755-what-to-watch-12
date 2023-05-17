@@ -1,4 +1,4 @@
-import Card from '../card';
+import Card from '../card/card';
 import { FilmType } from '../../types';
 
 type CatalogListProps = {

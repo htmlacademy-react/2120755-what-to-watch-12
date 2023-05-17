@@ -13,13 +13,13 @@ function Card({name, preview, id}: CardProps) {
   return (
 
     <article className="small-film-card catalog__films-card" onMouseOver={() => setActiveCard(id)}>
-      <Link to={`/films/${id}`}>
-        <div className="small-film-card__image">
-          <img src={preview} alt="Bohemian Rhapsody" width="280" height="175" />
-        </div>
-      </Link>
+
+      <div className="small-film-card__image">
+        <img src={preview} alt="Bohemian Rhapsody" width="280" height="175" />
+      </div>
+
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">{name}</a>
+        <Link to={`/films/${id}`} className="small-film-card__link" >{name}  </Link>
       </h3>
 
     </article>

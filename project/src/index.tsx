@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/app';
+import App from './components/app/app';
 import { BrowserRouter } from 'react-router-dom';
 import { mockFilms } from './mocks/mock-films';
 import { mockPromo } from './mocks/mock-promo';

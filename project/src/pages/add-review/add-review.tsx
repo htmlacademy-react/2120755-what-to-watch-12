@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
-import Header from '../../components/header';
-import NotFoundPage from '../../components/not-found';
+import Header from '../../components/header/header';
+import NotFoundPage from '../../components/not-found/not-found';
 import { FilmType } from '../../types';
 import ReviewForm from './components/review-form';
 

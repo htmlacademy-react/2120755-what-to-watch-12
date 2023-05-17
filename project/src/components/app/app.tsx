@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
-import AddReview from '../../pages/add-review';
-import Main from '../../pages/main';
-import Film from '../../pages/film';
-import MyList from '../../pages/my-list';
-import Player from '../../pages/player';
-import SignIn from '../../pages/signin';
-import NotFoundPage from '../not-found';
-import ProtectedRoute from '../protected-route';
+import AddReview from '../../pages/add-review/add-review';
+import Main from '../../pages/main/main';
+import Film from '../../pages/film/film';
+import MyList from '../../pages/my-list/my-list';
+import Player from '../../pages/player/player';
+import SignIn from '../../pages/signin/signin';
+import NotFoundPage from '../not-found/not-found';
+import ProtectedRoute from '../protected-route/protected-route';
 import { FilmType } from '../../types';
 
 type AppProps = {

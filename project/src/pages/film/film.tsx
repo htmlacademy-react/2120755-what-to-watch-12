@@ -1,5 +1,5 @@
-import CatalogList from '../../components/catalog-list';
-import Footer from '../../components/footer';
+import CatalogList from '../../components/catalog-list/catalog-list';
+import Footer from '../../components/footer/footer';
 // import Details from './components/details';
 import FilmNavigation from './components/film-navigation';
 import HeroFilm from './components/heroFilm';
@@ -7,7 +7,7 @@ import HeroFilm from './components/heroFilm';
 import Reviews from './components/reviews';
 import { FilmType } from '../../types';
 import { useParams } from 'react-router-dom';
-import NotFoundPage from '../../components/not-found';
+import NotFoundPage from '../../components/not-found/not-found';
 
 type FilmProps = {
   choosenFilms: FilmType[];

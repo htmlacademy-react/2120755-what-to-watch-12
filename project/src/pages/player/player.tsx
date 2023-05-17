@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { FilmType } from '../../types';
-import NotFoundPage from '../../components/not-found';
+import NotFoundPage from '../../components/not-found/not-found';
 
 type AddReview = {
   choosenFilms: FilmType[];
