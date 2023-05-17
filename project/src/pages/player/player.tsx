@@ -2,11 +2,11 @@ import { Link, useParams } from 'react-router-dom';
 import { FilmType } from '../../types';
 import NotFoundPage from '../../components/not-found/not-found';
 
-type AddReview = {
+type PlayerProps = {
   choosenFilms: FilmType[];
 };
 
-function Player({choosenFilms}: AddReview): JSX.Element {
+function Player({choosenFilms}: PlayerProps): JSX.Element {
   const filmId = Number(useParams().id);
   const choosenFilm = choosenFilms.find((film) => film.id === filmId);
 
