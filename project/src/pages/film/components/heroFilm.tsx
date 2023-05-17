@@ -7,9 +7,6 @@ type HeroFilmProps = {
 };
 
 function HeroFilm({ choosenFilm }: HeroFilmProps): JSX.Element {
-
-  // eslint-disable-next-line no-console
-  console.log(choosenFilm);
   return (
     <div className="film-card__hero">
       <div className="film-card__bg">
