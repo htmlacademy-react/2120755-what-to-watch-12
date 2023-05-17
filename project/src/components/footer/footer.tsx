@@ -10,7 +10,7 @@ function Footer(): JSX.Element {
       </div>
 
       <div className="copyright">
-        <p>© 2019 What to watch Ltd.</p>
+        <p>&#169; {new Date().getFullYear()} What to watch Ltd.</p>
       </div>
     </footer>
   );

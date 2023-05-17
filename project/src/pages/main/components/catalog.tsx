@@ -1,8 +1,14 @@
-import CatalogList from '../../../components/catalog-list';
+import CatalogList from '../../../components/catalog-list/catalog-list';
 import { useState } from 'react';
 import { genres } from '../../../utils/data';
+import { FilmType } from '../../../types';
 
-function Catalog(): JSX.Element {
+type CatalogProps = {
+  filmsToDisplay: FilmType[];
+};
+
+
+function Catalog({filmsToDisplay}: CatalogProps): JSX.Element {
   const[choseenGenre, setChoosenGenre] = useState('All genres');
 
   function handleChoosenGenre(choosen: string) {
@@ -17,7 +23,7 @@ function Catalog(): JSX.Element {
             <a href="#" className="catalog__genres-link">{genre}</a>
           </li>))}
       </ul>
-      <CatalogList amountToShow={20}/>
+      <CatalogList cardsToShow={filmsToDisplay} />
       <div className="catalog__more">
         <button className="catalog__button" type="button">Show more</button>
       </div>
