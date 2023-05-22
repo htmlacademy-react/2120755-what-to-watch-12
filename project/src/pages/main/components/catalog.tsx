@@ -22,6 +22,7 @@ function Catalog({filmsToDisplay}: CatalogProps): JSX.Element {
   }
 
   function handleChoosenGenre(choosen: string) {
+    // диспатч выбранного жанра.
     setChoosenGenre(choosen);
   }
   return (
