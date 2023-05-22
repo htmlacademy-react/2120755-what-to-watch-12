@@ -1,7 +1,8 @@
 import CatalogList from '../../../components/catalog-list/catalog-list';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { genres } from '../../../utils/data';
 import { FilmType } from '../../../types';
+import { INITIAL_AMOUNT_TO_SHOW_MAIN } from '../../../utils/const';
 
 type CatalogProps = {
   filmsToDisplay: FilmType[];
@@ -10,6 +11,15 @@ type CatalogProps = {
 
 function Catalog({filmsToDisplay}: CatalogProps): JSX.Element {
   const[choseenGenre, setChoosenGenre] = useState('All genres');
+  const [amountToShowOnMain, setAmountToShowOnMain] = useState(INITIAL_AMOUNT_TO_SHOW_MAIN);
+
+  useEffect(() => {
+    setAmountToShowOnMain(INITIAL_AMOUNT_TO_SHOW_MAIN);
+  }, []);
+
+  function handleMoreClick() {
+    setAmountToShowOnMain(amountToShowOnMain + 8);
+  }
 
   function handleChoosenGenre(choosen: string) {
     setChoosenGenre(choosen);
@@ -23,10 +33,11 @@ function Catalog({filmsToDisplay}: CatalogProps): JSX.Element {
             <a href="#" className="catalog__genres-link">{genre}</a>
           </li>))}
       </ul>
-      <CatalogList cardsToShow={filmsToDisplay} />
-      <div className="catalog__more">
-        <button className="catalog__button" type="button">Show more</button>
-      </div>
+      <CatalogList cardsToShow={filmsToDisplay} amountToShow={amountToShowOnMain}/>
+      {amountToShowOnMain < filmsToDisplay.length ?
+        <div className="catalog__more">
+          <button onClick={handleMoreClick} className="catalog__button" type="button">Show more</button>
+        </div> : null}
     </section>
   );
 }

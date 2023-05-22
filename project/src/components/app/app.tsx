@@ -29,6 +29,7 @@ function App({ filmsToShow, promoToShow, liklyFilmsToShow }: AppProps): JSX.Elem
         }
       />
       <Route path='/' element={<Main filmsOnMain={filmsToShow} promoOnMain={promoToShow}/>}/>
+      {/* Добавь табы через аутлет, когда данные будут приходить из редакса */}
       <Route path='/films/:id' element={<Film choosenFilms={filmsToShow} liklyFilms={liklyFilmsToShow}/>}/>
       <Route path='films/:id/review' element={<AddReview choosenFilms={filmsToShow}/>}/>
       <Route path='/player/:id' element={<Player choosenFilms={filmsToShow}/>}/>
