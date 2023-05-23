@@ -1,8 +1,12 @@
-import CatalogList from '../../../components/catalog-list/catalog-list';
 import { useEffect, useState } from 'react';
-import { genres } from '../../../utils/data';
+import CatalogList from '../../../components/catalog-list/catalog-list';
+import GenreList from './genre-list';
+
 import { FilmType } from '../../../types';
 import { INITIAL_AMOUNT_TO_SHOW_MAIN } from '../../../utils/const';
+import { sortByGenre } from '../../../store/reducers/films';
+import { useDispatch } from 'react-redux';
+
 
 type CatalogProps = {
   filmsToDisplay: FilmType[];
@@ -10,7 +14,7 @@ type CatalogProps = {
 
 
 function Catalog({filmsToDisplay}: CatalogProps): JSX.Element {
-  const[choseenGenre, setChoosenGenre] = useState('All genres');
+  const dispatch = useDispatch();
   const [amountToShowOnMain, setAmountToShowOnMain] = useState(INITIAL_AMOUNT_TO_SHOW_MAIN);
 
   useEffect(() => {
@@ -22,18 +26,12 @@ function Catalog({filmsToDisplay}: CatalogProps): JSX.Element {
   }
 
   function handleChoosenGenre(choosen: string) {
-    // диспатч выбранного жанра.
-    setChoosenGenre(choosen);
+    dispatch(sortByGenre(choosen));
   }
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
-      <ul className="catalog__genres-list">
-        {genres.map((genre) => (
-          <li onClick={() => handleChoosenGenre(genre)} className={`catalog__genres-item ${choseenGenre === genre ? 'catalog__genres-item--active' : ''}`} key={genre}>
-            <a href="#" className="catalog__genres-link">{genre}</a>
-          </li>))}
-      </ul>
+      <GenreList onGenreClick={handleChoosenGenre}/>
       <CatalogList cardsToShow={filmsToDisplay} amountToShow={amountToShowOnMain}/>
       {amountToShowOnMain < filmsToDisplay.length ?
         <div className="catalog__more">
