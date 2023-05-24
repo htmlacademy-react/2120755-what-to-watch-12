@@ -6,6 +6,7 @@ import { INITIAL_AMOUNT_TO_SHOW_MAIN } from '../../../utils/const';
 import { changeGenre } from '../../../store/reducers/films';
 
 import { filmsOfTargetGenreSelector } from '../../../store/reducers/films';
+import MoreButton from './more-button';
 
 
 function Catalog(): JSX.Element | null{
@@ -36,9 +37,7 @@ function Catalog(): JSX.Element | null{
       <GenreList onGenreClick={handleChoosenGenre}/>
       <CatalogList cardsToShow={filmsToDisplayOnMain} amountToShow={amountToShowOnMain}/>
       {amountToShowOnMain < filmsToDisplayOnMain.length ?
-        <div className="catalog__more">
-          <button onClick={handleMoreClick} className="catalog__button" type="button">Show more</button>
-        </div> : null}
+        <MoreButton onMoreClick={handleMoreClick}/> : null}
     </section>
   );
 }
