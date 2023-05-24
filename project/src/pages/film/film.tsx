@@ -12,6 +12,7 @@ import { FilmType } from '../../types';
 import { mockReviews } from '../../mocks/mock-reviews';
 import { AMOUNT_TO_SHOW_LIKLY } from '../../utils/const';
 
+
 type FilmProps = {
   choosenFilms: FilmType[];
   liklyFilms: FilmType[];
@@ -22,7 +23,6 @@ function Film({choosenFilms, liklyFilms}: FilmProps): JSX.Element {
   // Запрос на ревью к фильму.
   const [activeTab, setActiveTab] = useState('Overview');
   const filmId = Number(useParams().id);
-
   const choosenFilm = choosenFilms.find((film) => film.id === filmId);
 
   function handleTabChange(option: string) {

@@ -1,32 +1,36 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Header from '../../../components/header/header';
-import { FilmType } from '../../../types';
+import { myListFilmsSelector, promoFilmSelector } from '../../../store/reducers/films';
 
-type PromoFilmProps = {
-  promoToDisplay: FilmType;
-}
+function PromoFilm(): JSX.Element | null {
+  const myListFilms = useSelector(myListFilmsSelector);
+  const promoFilm = useSelector(promoFilmSelector);
 
-function PromoFilm({promoToDisplay}: PromoFilmProps): JSX.Element {
+  if (promoFilm === undefined) {
+    return null;
+  }
+
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src={promoToDisplay.backgroundImage} alt={`${promoToDisplay.name} background`} />
+        <img src={promoFilm.backgroundImage} alt={`${promoFilm.name} background`} />
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <Header/>
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src={promoToDisplay.posterImage} alt={`${promoToDisplay.name} poster`} width="218" height="327" />
+            <img src={promoFilm.posterImage} alt={`${promoFilm.name} poster`} width="218" height="327" />
           </div>
           <div className="film-card__desc">
-            <h2 className="film-card__title">{promoToDisplay.name}</h2>
+            <h2 className="film-card__title">{promoFilm.name}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">{promoToDisplay.genre}</span>
-              <span className="film-card__year">{promoToDisplay.released}</span>
+              <span className="film-card__genre">{promoFilm.genre}</span>
+              <span className="film-card__year">{promoFilm.released}</span>
             </p>
             <div className="film-card__buttons">
-              <Link to={`/player/${promoToDisplay.id}`} className="btn btn--play film-card__button" type="button">
+              <Link to={`/player/${promoFilm.id}`} className="btn btn--play film-card__button" type="button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
@@ -37,7 +41,7 @@ function PromoFilm({promoToDisplay}: PromoFilmProps): JSX.Element {
                   <use xlinkHref="#add"></use>
                 </svg>
                 <span>My list</span>
-                <span className="film-card__count">9</span>
+                <span className="film-card__count">{myListFilms?.length}</span>
               </Link>
             </div>
           </div>

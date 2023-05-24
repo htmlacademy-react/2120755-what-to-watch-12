@@ -1,46 +1,57 @@
 import {PayloadAction, createDraftSafeSelector, createSlice } from '@reduxjs/toolkit';
-// import { fetchOffers } from '../api-actions';
-// import { getRandomCity } from '@utils/sort-functions';
-// import { sortPriceHighToLow, sortPriceLowToHigh, sortTopRaiting, sortIdLowToHigh } from '@utils/sort-functions';
-// import { InitialState, OffersState } from '@customTypes/store';
-// import { Offer } from '@customTypes/index';
 import { FilmType } from '../../types';
 import { mockFilms } from '../../mocks/mock-films';
+import { mockFilmsLikly } from '../../mocks/mock-films-likly';
+import { mockPromo } from '../../mocks/mock-promo';
 import { FilmsState, InitialState } from '../../types/store';
 
 const filmsInitialState: FilmsState = {
-  genre: 'All genres',
+  choosenGenre: 'All genres',
   initialFilms: mockFilms,
-  filmsToShow: mockFilms,
+  myListFilms: mockFilmsLikly,
+  promoFilm: mockPromo,
 };
 
 export const FilmsSlice = createSlice({
   name: 'films',
   initialState: filmsInitialState,
   reducers: {
-    sortByGenre: (state, action: PayloadAction<string>) => {
-      state.genre = action.payload;
-      if (action.payload === 'All genres') {
-        state.filmsToShow = state.initialFilms;
-      } else {
-        state.filmsToShow = state.initialFilms?.filter((film) => film.genre === action.payload);
-      }
+    changeGenre: (state, action: PayloadAction<string>) => {
+      state.choosenGenre = action.payload;
     },
   },
 });
 
+const selectGenre = (state: InitialState) => state.films.choosenGenre;
 const selectFilms = (state: InitialState) => state.films.initialFilms;
-const selectFilmsToShow = (state: InitialState) => state.films.filmsToShow;
+const selectMyListFilms = (state: InitialState) => state.films.myListFilms;
+const selectPromoFilm = (state: InitialState) => state.films.promoFilm;
 
 const filmsSelector = createDraftSafeSelector(
   selectFilms,
-  (offers: FilmType[] | undefined) => offers
+  (initialFilms: FilmType[] | undefined) => initialFilms
 );
 
-const filmsToShowSelector = createDraftSafeSelector(
-  selectFilmsToShow,
-  (offers: FilmType[] | undefined) => offers
+const myListFilmsSelector = createDraftSafeSelector(
+  selectMyListFilms,
+  (myListFilms: FilmType[] | undefined) => myListFilms
 );
 
-export const { sortByGenre } = FilmsSlice.actions;
-export { filmsSelector, filmsToShowSelector };
+const filmsOfTargetGenreSelector = createDraftSafeSelector(
+  selectFilms,
+  selectGenre,
+  (initialFilms: FilmType[] | undefined, chosenGenre: string) => {
+    if (chosenGenre === 'All genres') {
+      return initialFilms;
+    }
+    return initialFilms?.filter(({ genre }) => genre === chosenGenre);
+  }
+);
+const promoFilmSelector = createDraftSafeSelector(
+  selectPromoFilm,
+  (promoFilm: FilmType | undefined) => promoFilm
+);
+
+
+export const { changeGenre } = FilmsSlice.actions;
+export { filmsSelector, myListFilmsSelector, filmsOfTargetGenreSelector, promoFilmSelector };

@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { store } from './store';
 import App from './components/app/app';
 import { mockFilms } from './mocks/mock-films';
-import { mockPromo } from './mocks/mock-promo';
 import { mockFilmsLikly } from './mocks/mock-films-likly';
 
 // import { mockReviews } from './mocks/mock-reviews';
@@ -18,7 +17,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App filmsToShow={mockFilms} promoToShow={mockPromo} liklyFilmsToShow={mockFilmsLikly}/>
+        <App filmsToShow={mockFilms} liklyFilmsToShow={mockFilmsLikly}/>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

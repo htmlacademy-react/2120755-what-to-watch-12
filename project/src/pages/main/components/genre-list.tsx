@@ -27,7 +27,7 @@ function GenreList({onGenreClick}: GenreListProps): JSX.Element {
     <ul className="catalog__genres-list">
       {genresToShow.map((genre) => (
         <li onClick={() => chooseGenre(genre)} className={`catalog__genres-item ${choseenGenre === genre ? 'catalog__genres-item--active' : ''}`} key={genre}>
-          <a href="#" className="catalog__genres-link">{genre}</a>
+          <button style={{border: 'none', background: 'none'}} className="catalog__genres-link">{genre}</button>
         </li>))}
     </ul>
   );

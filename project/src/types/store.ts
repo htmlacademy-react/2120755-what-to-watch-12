@@ -12,9 +12,10 @@ import { FilmType } from './index';
 // }
 
 export type FilmsState = {
-  genre: string;
+  choosenGenre: string;
   initialFilms: FilmType[] | undefined;
-  filmsToShow: FilmType[] | undefined;
+  myListFilms: FilmType[] | undefined;
+  promoFilm: FilmType | undefined;
 }
 
 // export type ChosenOfferState = {
