@@ -11,11 +11,11 @@ function MyList({filmsOnMyList}: MyListProps): JSX.Element {
   return (
     <div className="user-page">
       <Header>
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
+        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{filmsOnMyList.length}</span></h1>
       </Header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <CatalogList cardsToShow={filmsOnMyList}/>
+        <CatalogList cardsToShow={filmsOnMyList} amountToShow={filmsOnMyList.length}/>
       </section>
       <Footer/>
     </div>

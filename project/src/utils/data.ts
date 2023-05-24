@@ -1,3 +1,5 @@
+import { RatingNameType } from '../types';
+
 const genres: string[] = [
   'All genres', 'Comedies', 'Crime', 'Documentary', 'Dramas', 'Horror', 'Kids & Family', 'Romance', 'Sci-Fi', 'Thrillers'
 ];
@@ -15,6 +17,20 @@ const rating = {
   10:'Rating 10',
 };
 
+const ratingName: RatingNameType = {
+  0: 'Bad',
+  1: 'Bad',
+  2: 'Bad',
+  3: 'Normal',
+  4: 'Normal',
+  5: 'Good',
+  6: 'Good',
+  7: 'Good',
+  8: 'Very good',
+  9: 'Very good',
+  10: 'Awesome',
+};
+
 const filmNavigationOptions = ['Overview' , 'Details' , 'Reviews'];
 
 const locationToClassMap = {
@@ -27,6 +43,7 @@ const locationToClassMap = {
 export {
   genres,
   rating,
+  ratingName,
   filmNavigationOptions,
   locationToClassMap
 };

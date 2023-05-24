@@ -1,19 +1,14 @@
 import Footer from '../../components/footer/footer';
 import Catalog from './components/catalog';
 import PromoFilm from './components/promo-film';
-import { FilmType } from '../../types';
 
-type MainProps = {
-  filmsOnMain: FilmType[];
-  promoOnMain: FilmType;
-};
+function Main(): JSX.Element {
 
-function Main({filmsOnMain, promoOnMain}: MainProps): JSX.Element {
   return (
     <div>
-      <PromoFilm promoToDisplay={promoOnMain}/>
+      <PromoFilm/>
       <div className="page-content">
-        <Catalog filmsToDisplay={filmsOnMain}/>
+        <Catalog/>
         <Footer/>
       </div>
     </div>

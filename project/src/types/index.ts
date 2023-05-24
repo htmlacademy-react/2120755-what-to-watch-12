@@ -5,11 +5,11 @@ export type FilmType = {
   backgroundImage?: string;
   backgroundColor?: string;
   description?: string;
-  rating?: number;
-  scoresCount?: number;
-  director?: string;
-  starring?: string[];
-  runTime?: number;
+  rating: number;
+  scoresCount: number;
+  director: string;
+  starring: string[];
+  runTime: number;
   genre?: string;
   released?: number;
   id: number;
@@ -28,3 +28,7 @@ export type ReviewType = {
     comment: string;
     date: string;
 }
+
+export type RatingNameType = {
+  [key: number]: string;
+};
