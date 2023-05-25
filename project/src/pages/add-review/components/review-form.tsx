@@ -2,7 +2,6 @@ import { useState, ChangeEvent, FormEvent, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { rating } from '../../../utils/data';
 
-
 function ReviewForm(): JSX.Element {
   const urlParams = useParams();
   const offerId = Number(urlParams.id);

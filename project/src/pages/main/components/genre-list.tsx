@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { genreSorter } from '../../../utils/genreSorter';
 import { filmsSelector } from '../../../store/reducers/films';
-import { useSelector } from 'react-redux';
+
 
 type GenreListProps = {
   onGenreClick: (genre: string) => void;

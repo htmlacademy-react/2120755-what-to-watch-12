@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { locationToClassMap } from '../../utils/data';
 
 type HeaderProps = {
@@ -31,7 +31,7 @@ function Header({children}: HeaderProps): JSX.Element {
             </div>
           </li>
           <li className="user-block__item">
-            <a className="user-block__link" href="/sign-in">Sign out</a>
+            <Link to='/login' className="user-block__link" >Sign out</Link>
           </li>
         </ul>
         : null}

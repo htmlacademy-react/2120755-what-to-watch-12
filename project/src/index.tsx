@@ -7,8 +7,6 @@ import App from './components/app/app';
 import { mockFilms } from './mocks/mock-films';
 import { mockFilmsLikly } from './mocks/mock-films-likly';
 
-// import { mockReviews } from './mocks/mock-reviews';
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );

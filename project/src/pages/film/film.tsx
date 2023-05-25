@@ -8,9 +8,9 @@ import HeroFilm from './components/heroFilm';
 import Overview from './components/overview';
 import Reviews from './components/reviews';
 import NotFoundPage from '../../components/not-found/not-found';
-import { FilmType } from '../../types';
 import { mockReviews } from '../../mocks/mock-reviews';
 import { AMOUNT_TO_SHOW_LIKLY } from '../../utils/const';
+import { FilmType } from '../../types';
 
 
 type FilmProps = {
