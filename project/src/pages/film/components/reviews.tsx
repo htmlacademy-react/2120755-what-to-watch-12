@@ -1,8 +1,8 @@
 import Review from './review';
-import { ReviewType } from '../../../types';
+import { ReviewObjectType } from '../../../types';
 
 type ReviewsProps = {
-  filmReviews: ReviewType[];
+  filmReviews: ReviewObjectType[];
 }
 
 function Reviews({filmReviews}: ReviewsProps): JSX.Element {

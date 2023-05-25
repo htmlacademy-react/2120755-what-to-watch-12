@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Footer from '../../components/footer/footer';
 import Details from './components/details';
@@ -8,22 +9,39 @@ import HeroFilm from './components/heroFilm';
 import Overview from './components/overview';
 import Reviews from './components/reviews';
 import NotFoundPage from '../../components/not-found/not-found';
+import Spinner from '../../components/spinner/spinner';
 import { mockReviews } from '../../mocks/mock-reviews';
 import { AMOUNT_TO_SHOW_LIKLY } from '../../utils/const';
+import { fetchFilmData } from '../../store/api-actions';
+import { filmToShowSelector, cleanFilmToShowData } from '../../store/reducers/chosenFilm';
+import { filmLoadingStatusSelector } from '../../store/reducers/loading';
 import { FilmType } from '../../types';
+import { AppDispatch } from '../../types/store';
 
 
 type FilmProps = {
-  choosenFilms: FilmType[];
   liklyFilms: FilmType[];
 };
 
-function Film({choosenFilms, liklyFilms}: FilmProps): JSX.Element {
-  // Запрос на фильм
+function Film({liklyFilms}: FilmProps): JSX.Element {
   // Запрос на ревью к фильму.
+  const dispatch: AppDispatch = useDispatch();
   const [activeTab, setActiveTab] = useState('Overview');
   const filmId = Number(useParams().id);
-  const choosenFilm = choosenFilms.find((film) => film.id === filmId);
+  const choosenFilm = useSelector(filmToShowSelector);
+  const isFilmLoaded = useSelector(filmLoadingStatusSelector);
+
+  // eslint-disable-next-line no-console
+  console.log(choosenFilm);
+  // eslint-disable-next-line no-console
+  console.log(isFilmLoaded);
+
+  useEffect(() => {
+    dispatch(fetchFilmData(filmId));
+    return () => {
+      dispatch(cleanFilmToShowData());
+    };
+  }, [dispatch, filmId]);
 
   function handleTabChange(option: string) {
     setActiveTab(option);
@@ -46,7 +64,14 @@ function Film({choosenFilms, liklyFilms}: FilmProps): JSX.Element {
     chooseTab(activeTab);
   }, [activeTab]);
 
-  if (choosenFilm === undefined ) {
+  if(!isFilmLoaded) {
+    return (
+      <div style={{height: '100vh'}} className="page-content">
+        <Spinner />
+      </div>);
+  }
+
+  if (choosenFilm === undefined) {
     return <NotFoundPage/>;
   }
 

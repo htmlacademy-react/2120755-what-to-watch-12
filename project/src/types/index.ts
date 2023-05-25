@@ -18,7 +18,21 @@ export type FilmType = {
   previewVideoLink?: string;
 }
 
-export type ReviewType = {
+export type UserData = {
+  avatarUrl: string;
+  email: string;
+  id: number;
+  isPro: boolean;
+  name: string;
+  token: string;
+}
+
+export type LoginData = {
+  email: string;
+  password: string;
+}
+
+export type ReviewObjectType = {
     id: number;
     user: {
       id: number;
@@ -27,6 +41,12 @@ export type ReviewType = {
     rating: number;
     comment: string;
     date: string;
+}
+
+export type ReviewType = {
+  id: number;
+  rating: number;
+  comment: string;
 }
 
 export type RatingNameType = {

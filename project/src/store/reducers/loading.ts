@@ -1,9 +1,10 @@
 import { createSlice, createDraftSafeSelector } from '@reduxjs/toolkit';
-import { fetchFilms } from '../api-actions';
+import { fetchFilms, fetchFilmData } from '../api-actions';
 import { LoadingState, InitialState } from '../../types/store';
 
 const loadingInitialState: LoadingState = {
   isLoaded: false,
+  isFilmLoaded: false
 };
 
 export const loadingSlice = createSlice({
@@ -15,15 +16,24 @@ export const loadingSlice = createSlice({
     builder
       .addCase(fetchFilms.fulfilled, (state) => {
         state.isLoaded = true;
+      })
+      .addCase(fetchFilmData.fulfilled, (state) => {
+        state.isFilmLoaded = true;
       });
   },
 });
 
 const selectLoadingStatus = (state: InitialState) => state.loading.isLoaded;
+const selectFilmLoadingStatus = (state: InitialState) => state.loading.isFilmLoaded;
 
 const loadingStatusSelector = createDraftSafeSelector(
   selectLoadingStatus,
   (isLoaded: boolean) => isLoaded
 );
 
-export { loadingStatusSelector };
+const filmLoadingStatusSelector = createDraftSafeSelector(
+  selectFilmLoadingStatus,
+  (isLoaded: boolean) => isLoaded
+);
+
+export { loadingStatusSelector, filmLoadingStatusSelector };
