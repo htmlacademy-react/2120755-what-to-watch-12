@@ -1,10 +1,9 @@
 import {store} from '../store';
 import { FilmType } from './index';
 
-// export type LoadingState = {
-//   isLoaded: boolean;
-//   isOfferLoaded:boolean;
-// }
+export type LoadingState = {
+  isLoaded: boolean;
+}
 
 // export type AuthorizationState = {
 //   authorized: boolean;
@@ -26,7 +25,7 @@ export type FilmsState = {
 // }
 
 export type InitialState = {
-// loading: LoadingState;
+loading: LoadingState;
 // authorization: AuthorizationState;
 films: FilmsState;
 // chosenOffer: ChosenOfferState;
