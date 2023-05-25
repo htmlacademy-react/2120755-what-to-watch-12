@@ -2,12 +2,10 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CatalogList from '../../../components/catalog-list/catalog-list';
 import GenreList from './genre-list';
+import MoreButton from './more-button';
 import { INITIAL_AMOUNT_TO_SHOW_MAIN } from '../../../utils/const';
 import { changeGenre } from '../../../store/reducers/films';
-
 import { filmsOfTargetGenreSelector } from '../../../store/reducers/films';
-import MoreButton from './more-button';
-
 
 function Catalog(): JSX.Element | null{
   const dispatch = useDispatch();

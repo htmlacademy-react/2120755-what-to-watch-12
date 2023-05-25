@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import AddReview from '../../pages/add-review/add-review';
 import Main from '../../pages/main/main';
 import Film from '../../pages/film/film';
@@ -7,7 +9,10 @@ import Player from '../../pages/player/player';
 import SignIn from '../../pages/signin/signin';
 import NotFoundPage from '../not-found/not-found';
 import ProtectedRoute from '../protected-route/protected-route';
+import { fetchFilms } from '../../store/api-actions';
 import { FilmType } from '../../types';
+import { AppDispatch } from '../../types/store';
+
 
 type AppProps = {
   filmsToShow: FilmType[];
@@ -15,6 +20,11 @@ type AppProps = {
 };
 
 function App({ filmsToShow, liklyFilmsToShow }: AppProps): JSX.Element {
+  const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFilms());
+  }, [dispatch]);
 
   return(
     <Routes>

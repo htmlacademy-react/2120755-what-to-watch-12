@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Header from '../../../components/header/header';
 import { FilmType } from '../../../types';
+import { myListFilmsSelector } from '../../../store/reducers/films';
+
 
 type HeroFilmProps = {
   choosenFilm: FilmType;
 };
 
 function HeroFilm({ choosenFilm }: HeroFilmProps): JSX.Element {
+  const myListFilms = useSelector(myListFilmsSelector);
   return (
     <div className="film-card__hero">
       <div className="film-card__bg">
@@ -34,7 +38,7 @@ function HeroFilm({ choosenFilm }: HeroFilmProps): JSX.Element {
                 <use xlinkHref="#add"></use>
               </svg>
               <span>My list</span>
-              <span className="film-card__count">9</span>
+              <span className="film-card__count">{myListFilms?.length}</span>
             </Link>
             <Link to={`/films/${choosenFilm.id}/review`} className="btn film-card__button">Add review</Link>
           </div>

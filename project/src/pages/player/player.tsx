@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
-import { FilmType } from '../../types';
 import NotFoundPage from '../../components/not-found/not-found';
+import { FilmType } from '../../types';
 
 type PlayerProps = {
   choosenFilms: FilmType[];

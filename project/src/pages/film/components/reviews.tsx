@@ -1,5 +1,5 @@
-import { ReviewType } from '../../../types';
 import Review from './review';
+import { ReviewType } from '../../../types';
 
 type ReviewsProps = {
   filmReviews: ReviewType[];

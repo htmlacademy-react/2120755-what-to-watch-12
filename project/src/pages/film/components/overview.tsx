@@ -1,6 +1,6 @@
+import NotFoundPage from '../../../components/not-found/not-found';
 import { ratingName } from '../../../utils/data';
 import { FilmType } from '../../../types';
-import NotFoundPage from '../../../components/not-found/not-found';
 
 type OverviewProps = {
   film: FilmType | undefined;

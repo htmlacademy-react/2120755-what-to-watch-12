@@ -1,13 +1,14 @@
-import {PayloadAction, createDraftSafeSelector, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createDraftSafeSelector, createSlice } from '@reduxjs/toolkit';
 import { FilmType } from '../../types';
-import { mockFilms } from '../../mocks/mock-films';
+// import { mockFilms } from '../../mocks/mock-films';
 import { mockFilmsLikly } from '../../mocks/mock-films-likly';
 import { mockPromo } from '../../mocks/mock-promo';
+import { fetchFilms } from '../api-actions';
 import { FilmsState, InitialState } from '../../types/store';
 
 const filmsInitialState: FilmsState = {
   choosenGenre: 'All genres',
-  initialFilms: mockFilms,
+  initialFilms: [],
   myListFilms: mockFilmsLikly,
   promoFilm: mockPromo,
 };
@@ -19,6 +20,12 @@ export const FilmsSlice = createSlice({
     changeGenre: (state, action: PayloadAction<string>) => {
       state.choosenGenre = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchFilms.fulfilled, (state, action) => {
+        state.initialFilms = action.payload;
+      });
   },
 });
 
