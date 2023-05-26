@@ -1,10 +1,14 @@
 import { ReviewObjectType } from '../../../types';
 
 type ReviewProps = {
-  review: ReviewObjectType;
+  review: ReviewObjectType | undefined;
 }
 
-function Review({review}: ReviewProps): JSX.Element {
+function Review({review}: ReviewProps): JSX.Element | null{
+  if (review === undefined) {
+    return null;
+  }
+
   const date = new Date(review.date);
   const formatter = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -15,7 +19,7 @@ function Review({review}: ReviewProps): JSX.Element {
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">{review.comment}</p>
+        <p className="review__text">{review?.comment}</p>
 
         <footer className="review__details">
           <cite className="review__author">{review.user.name}</cite>

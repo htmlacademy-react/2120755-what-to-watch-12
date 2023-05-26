@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Footer from '../../components/footer/footer';
@@ -10,9 +10,8 @@ import Overview from './components/overview';
 import Reviews from './components/reviews';
 import NotFoundPage from '../../components/not-found/not-found';
 import Spinner from '../../components/spinner/spinner';
-import { mockReviews } from '../../mocks/mock-reviews';
 import { AMOUNT_TO_SHOW_LIKLY } from '../../utils/const';
-import { fetchFilmData, fetchSimilarFilms } from '../../store/api-actions';
+import { fetchFilmData, fetchSimilarFilms, fetchFilmReviews } from '../../store/api-actions';
 import { filmToShowSelector, similarFilmsSelector, cleanFilmToShowData } from '../../store/reducers/chosenFilm';
 import { filmLoadingStatusSelector } from '../../store/reducers/loading';
 import { AppDispatch } from '../../types/store';
@@ -20,6 +19,7 @@ import { AppDispatch } from '../../types/store';
 function Film(): JSX.Element {
   // Запрос на ревью к фильму.
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Overview');
   const filmId = Number(useParams().id);
   const choosenFilm = useSelector(filmToShowSelector);
@@ -29,6 +29,7 @@ function Film(): JSX.Element {
   useEffect(() => {
     dispatch(fetchFilmData(filmId));
     dispatch(fetchSimilarFilms(filmId));
+    dispatch(fetchFilmReviews(filmId));
     return () => {
       dispatch(cleanFilmToShowData());
     };
@@ -40,13 +41,15 @@ function Film(): JSX.Element {
 
   function chooseTab(tab: string) {
     if (tab === 'Overview') {
-      return <Overview film={choosenFilm}/>;
+      return <Overview/>;
     }
     if (tab === 'Details') {
-      return <Details film={choosenFilm}/>;
+      navigate(`/films/${filmId}#details`);
+      return <Details/>;
     }
     if (tab === 'Reviews') {
-      return <Reviews filmReviews={mockReviews}/>;
+      navigate(`/films/${filmId}#reviews`);
+      return <Reviews/>;
     }
   }
 

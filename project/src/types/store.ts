@@ -1,5 +1,5 @@
 import {store} from '../store';
-import { FilmType, ReviewType, UserData } from './index';
+import { FilmType, ReviewObjectType, UserData } from './index';
 
 export type AuthorizationState = {
   authorized: boolean;
@@ -21,7 +21,7 @@ export type FilmsState = {
 export type ChosenFilmState = {
   filmToShow: FilmType | undefined;
   similarFilms: FilmType[] | undefined;
-  filmReviews: ReviewType[] | undefined;
+  filmReviews: ReviewObjectType[] | undefined;
 }
 
 export type InitialState = {

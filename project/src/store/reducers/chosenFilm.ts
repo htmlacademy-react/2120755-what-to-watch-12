@@ -1,7 +1,7 @@
 import { createDraftSafeSelector, createSlice } from '@reduxjs/toolkit';
 import { fetchFilmData, fetchSimilarFilms, fetchFilmReviews, postReview } from '../api-actions';
 import { ChosenFilmState, InitialState } from '../../types/store';
-import { FilmType, ReviewType} from '../../types';
+import { FilmType, ReviewObjectType} from '../../types';
 
 const chosenOffersInitialState: ChosenFilmState = {
   filmToShow: undefined,
@@ -54,7 +54,7 @@ const similarFilmsSelector = createDraftSafeSelector(
 
 const filmReviewsSelector = createDraftSafeSelector(
   selectFilmReviews,
-  (filmReviews: ReviewType[] | undefined) => filmReviews
+  (filmReviews: ReviewObjectType[] | undefined) => filmReviews
 );
 
 export const { cleanFilmToShowData } = chosenFilmSlice.actions;

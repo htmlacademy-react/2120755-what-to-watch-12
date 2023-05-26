@@ -1,12 +1,10 @@
+import { useSelector } from 'react-redux';
 import NotFoundPage from '../../../components/not-found/not-found';
 import { ratingName } from '../../../utils/data';
-import { FilmType } from '../../../types';
+import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
 
-type OverviewProps = {
-  film: FilmType | undefined;
-};
-
-function Overview({film}: OverviewProps): JSX.Element {
+function Overview(): JSX.Element {
+  const film = useSelector(filmToShowSelector);
 
   if (film === undefined) {
     return <NotFoundPage/>;

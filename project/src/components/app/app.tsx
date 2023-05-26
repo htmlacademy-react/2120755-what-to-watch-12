@@ -13,7 +13,6 @@ import { fetchFilms, fetchPromoFilm, fetchUserFilms, checkAuthAction } from '../
 import { FilmType } from '../../types';
 import { AppDispatch } from '../../types/store';
 
-
 type AppProps = {
   filmsToShow: FilmType[];
   liklyFilmsToShow: FilmType[];
