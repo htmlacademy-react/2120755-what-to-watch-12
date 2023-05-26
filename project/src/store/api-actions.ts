@@ -32,6 +32,8 @@ export const login = createAsyncThunkTeamplate<UserData, LoginData>()(
 export const logout = createAsyncThunkTeamplate<void, undefined>()(
   'DELETE to /login',
   async (_arg, {extra: api}) => {
+    // eslint-disable-next-line no-console
+    console.log('exit request');
     await api.delete(ApiRoutes.Logout);
     removeToken();
   },
