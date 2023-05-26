@@ -12,32 +12,23 @@ import NotFoundPage from '../../components/not-found/not-found';
 import Spinner from '../../components/spinner/spinner';
 import { mockReviews } from '../../mocks/mock-reviews';
 import { AMOUNT_TO_SHOW_LIKLY } from '../../utils/const';
-import { fetchFilmData } from '../../store/api-actions';
-import { filmToShowSelector, cleanFilmToShowData } from '../../store/reducers/chosenFilm';
+import { fetchFilmData, fetchSimilarFilms } from '../../store/api-actions';
+import { filmToShowSelector, similarFilmsSelector, cleanFilmToShowData } from '../../store/reducers/chosenFilm';
 import { filmLoadingStatusSelector } from '../../store/reducers/loading';
-import { FilmType } from '../../types';
 import { AppDispatch } from '../../types/store';
 
-
-type FilmProps = {
-  liklyFilms: FilmType[];
-};
-
-function Film({liklyFilms}: FilmProps): JSX.Element {
+function Film(): JSX.Element {
   // Запрос на ревью к фильму.
   const dispatch: AppDispatch = useDispatch();
   const [activeTab, setActiveTab] = useState('Overview');
   const filmId = Number(useParams().id);
   const choosenFilm = useSelector(filmToShowSelector);
+  const similarFilms = useSelector(similarFilmsSelector);
   const isFilmLoaded = useSelector(filmLoadingStatusSelector);
-
-  // eslint-disable-next-line no-console
-  console.log(choosenFilm);
-  // eslint-disable-next-line no-console
-  console.log(isFilmLoaded);
 
   useEffect(() => {
     dispatch(fetchFilmData(filmId));
+    dispatch(fetchSimilarFilms(filmId));
     return () => {
       dispatch(cleanFilmToShowData());
     };
@@ -46,7 +37,6 @@ function Film({liklyFilms}: FilmProps): JSX.Element {
   function handleTabChange(option: string) {
     setActiveTab(option);
   }
-
 
   function chooseTab(tab: string) {
     if (tab === 'Overview') {
@@ -95,7 +85,7 @@ function Film({liklyFilms}: FilmProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <CatalogList cardsToShow={liklyFilms} amountToShow={AMOUNT_TO_SHOW_LIKLY}/>
+          {similarFilms?.length === 0 ? <p>No similar films in our database. But we will find some...later☹️</p> : <CatalogList cardsToShow={similarFilms} amountToShow={AMOUNT_TO_SHOW_LIKLY}/>}
         </section>
         <Footer/>
       </div>

@@ -9,7 +9,7 @@ import Player from '../../pages/player/player';
 import SignIn from '../../pages/signin/signin';
 import NotFoundPage from '../not-found/not-found';
 import ProtectedRoute from '../protected-route/protected-route';
-import { fetchFilms, fetchPromoFilm } from '../../store/api-actions';
+import { fetchFilms, fetchPromoFilm, fetchUserFilms, checkAuthAction } from '../../store/api-actions';
 import { FilmType } from '../../types';
 import { AppDispatch } from '../../types/store';
 
@@ -23,8 +23,10 @@ function App({ filmsToShow, liklyFilmsToShow }: AppProps): JSX.Element {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(checkAuthAction());
     dispatch(fetchFilms());
     dispatch(fetchPromoFilm());
+    dispatch(fetchUserFilms());
   }, [dispatch]);
 
   return(
@@ -34,14 +36,13 @@ function App({ filmsToShow, liklyFilmsToShow }: AppProps): JSX.Element {
         path='/mylist'
         element={
           <ProtectedRoute
-            element={<MyList filmsOnMyList={filmsToShow}/>}
-            loggedIn
+            element={<MyList/>}
           />
         }
       />
       <Route path='/' element={<Main/>}/>
       {/* Добавь табы через аутлет, когда данные будут приходить из редакса */}
-      <Route path='/films/:id' element={<Film liklyFilms={liklyFilmsToShow}/>}/>
+      <Route path='/films/:id' element={<Film/>}/>
       <Route path='films/:id/review' element={<AddReview choosenFilms={filmsToShow}/>}/>
       <Route path='/player/:id' element={<Player choosenFilms={filmsToShow}/>}/>
       <Route path='/login' element={<SignIn/>}/>

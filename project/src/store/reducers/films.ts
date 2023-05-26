@@ -1,13 +1,13 @@
 import { PayloadAction, createDraftSafeSelector, createSlice } from '@reduxjs/toolkit';
 import { FilmType } from '../../types';
-import { mockFilmsLikly } from '../../mocks/mock-films-likly';
+// import { mockFilmsLikly } from '../../mocks/mock-films-likly';
 import { fetchFilms, fetchPromoFilm } from '../api-actions';
 import { FilmsState, InitialState } from '../../types/store';
 
 const filmsInitialState: FilmsState = {
   choosenGenre: 'All genres',
   initialFilms: [],
-  myListFilms: mockFilmsLikly,
+  myListFilms: [],
   promoFilm: undefined,
 };
 

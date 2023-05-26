@@ -43,11 +43,14 @@ function SignInForm(): JSX.Element {
   }
 
   useEffect(() => {
-    setIsValid({email: true, password: true});
-    setErrorMessage('');
+
     if (authorized) {
       navigate('/');
     }
+    return () => {
+      setIsValid({email: true, password: true});
+      setErrorMessage('');
+    };
   }
   , [authorized, navigate]);
 

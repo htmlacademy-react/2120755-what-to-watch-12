@@ -39,7 +39,7 @@ function Header({children}: HeaderProps): JSX.Element {
           { authorized ?
             <>
               <li className="user-block__item">
-                <Link to='/login'>
+                <Link to='/mylist'>
                   <div className="user-block__avatar">
                     <img src={userData?.avatarUrl} alt="User avatar" width="63" height="63" />
                   </div>

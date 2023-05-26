@@ -48,7 +48,8 @@ const filmToShowSelector = createDraftSafeSelector(
 
 const similarFilmsSelector = createDraftSafeSelector(
   selectSimilarFilms,
-  (similarFilms: FilmType[] | undefined) => similarFilms
+  selectFilmToShow,
+  (similarFilms: FilmType[] | undefined, filmToShow: FilmType | undefined ) => similarFilms?.filter((film) => film.id !== filmToShow?.id)
 );
 
 const filmReviewsSelector = createDraftSafeSelector(
