@@ -1,5 +1,10 @@
 import {store} from '../store';
-import { FilmType, ReviewType } from './index';
+import { FilmType, ReviewType, UserData } from './index';
+
+export type AuthorizationState = {
+  authorized: boolean;
+  userData: UserData | undefined;
+}
 
 export type LoadingState = {
   isLoaded: boolean;
@@ -23,6 +28,7 @@ export type InitialState = {
 loading: LoadingState;
 films: FilmsState;
 choosenFilm: ChosenFilmState;
+authorization: AuthorizationState;
 }
 
 export type AppDispatch = typeof store.dispatch;
