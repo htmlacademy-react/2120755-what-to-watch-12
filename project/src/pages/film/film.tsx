@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Footer from '../../components/footer/footer';
 import Details from './components/details';
@@ -8,45 +9,65 @@ import HeroFilm from './components/heroFilm';
 import Overview from './components/overview';
 import Reviews from './components/reviews';
 import NotFoundPage from '../../components/not-found/not-found';
-import { mockReviews } from '../../mocks/mock-reviews';
+import Spinner from '../../components/spinner/spinner';
 import { AMOUNT_TO_SHOW_LIKLY } from '../../utils/const';
-import { FilmType } from '../../types';
+import { fetchFilmData, fetchSimilarFilms, fetchFilmReviews } from '../../store/api-actions';
+import { cleanFilmToShowData, filmToShowSelector, similarFilmsSelector } from '../../store/reducers/chosenFilm';
+import { filmLoadingStatusSelector, cleanFilmLoadingStatus } from '../../store/reducers/loading';
+import { AppDispatch } from '../../types/store';
 
-
-type FilmProps = {
-  choosenFilms: FilmType[];
-  liklyFilms: FilmType[];
-};
-
-function Film({choosenFilms, liklyFilms}: FilmProps): JSX.Element {
-  // Запрос на фильм
-  // Запрос на ревью к фильму.
-  const [activeTab, setActiveTab] = useState('Overview');
+function Film(): JSX.Element {
+  const dispatch: AppDispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState('overview');
   const filmId = Number(useParams().id);
-  const choosenFilm = choosenFilms.find((film) => film.id === filmId);
+  const tab = searchParams.get('tab');
+  const choosenFilm = useSelector(filmToShowSelector);
+  const similarFilms = useSelector(similarFilmsSelector);
+  const isFilmLoaded = useSelector(filmLoadingStatusSelector);
+
+  useEffect(() => {
+    dispatch(fetchFilmData(filmId));
+    dispatch(fetchSimilarFilms(filmId));
+    dispatch(fetchFilmReviews(filmId));
+    return () => {
+      dispatch(cleanFilmToShowData());
+      dispatch(cleanFilmLoadingStatus());
+    };
+  }, [dispatch, filmId]);
 
   function handleTabChange(option: string) {
+    setSearchParams({tab: option});
     setActiveTab(option);
   }
 
-
-  function chooseTab(tab: string) {
-    if (tab === 'Overview') {
-      return <Overview film={choosenFilm}/>;
+  function chooseTab(choosenTab: string) {
+    if (choosenTab === 'overview') {
+      return <Overview/>;
     }
-    if (tab === 'Details') {
-      return <Details film={choosenFilm}/>;
+    if (choosenTab === 'details') {
+      return <Details/>;
     }
-    if (tab === 'Reviews') {
-      return <Reviews filmReviews={mockReviews}/>;
+    if (choosenTab === 'reviews') {
+      return <Reviews/>;
     }
   }
 
   useEffect(() => {
+    if (tab) {
+      setActiveTab(tab);
+    }
     chooseTab(activeTab);
-  }, [activeTab]);
+  }, [activeTab, tab]);
 
-  if (choosenFilm === undefined ) {
+  if(!isFilmLoaded) {
+    return (
+      <div style={{height: '100vh'}} className="page-content">
+        <Spinner />
+      </div>);
+  }
+
+  if (choosenFilm === undefined) {
     return <NotFoundPage/>;
   }
 
@@ -61,7 +82,7 @@ function Film({choosenFilms, liklyFilms}: FilmProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <FilmNavigation onTabClick={handleTabChange}/>
+              <FilmNavigation activeTab={activeTab} onTabClick={handleTabChange}/>
               {chooseTab(activeTab)}
             </div>
           </div>
@@ -70,7 +91,7 @@ function Film({choosenFilms, liklyFilms}: FilmProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <CatalogList cardsToShow={liklyFilms} amountToShow={AMOUNT_TO_SHOW_LIKLY}/>
+          {similarFilms?.length === 0 ? <p>No similar films in our database. But we will find some...later☹️</p> : <CatalogList cardsToShow={similarFilms} amountToShow={AMOUNT_TO_SHOW_LIKLY}/>}
         </section>
         <Footer/>
       </div>

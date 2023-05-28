@@ -1,11 +1,13 @@
 import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { authorizationSelector } from '../../store/reducers/authorization';
 
 type ProtectedRouteProps = {
 element: JSX.Element;
-loggedIn: boolean;
 }
 
-function ProtectedRoute({element, loggedIn}: ProtectedRouteProps) {
+function ProtectedRoute({element}: ProtectedRouteProps) {
+  const loggedIn = useSelector(authorizationSelector);
   return loggedIn ? (
     element
   ) : (

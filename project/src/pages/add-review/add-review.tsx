@@ -2,15 +2,36 @@ import { Link, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import NotFoundPage from '../../components/not-found/not-found';
 import ReviewForm from './components/review-form';
-import { FilmType } from '../../types';
+import { cleanFilmToShowData, filmToShowSelector } from '../../store/reducers/chosenFilm';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../types/store';
+import { useEffect } from 'react';
+import { fetchFilmData } from '../../store/api-actions';
+import { cleanFilmLoadingStatus, filmLoadingStatusSelector } from '../../store/reducers/loading';
+import Spinner from '../../components/spinner/spinner';
 
-type AddReviewProps = {
-  choosenFilms: FilmType[];
-};
+function AddReview(): JSX.Element {
+  const urlParams = useParams();
+  const filmId = Number(urlParams.id);
+  const dispatch: AppDispatch = useDispatch();
+  const choosenFilm = useSelector(filmToShowSelector);
+  const isFilmLoaded = useSelector(filmLoadingStatusSelector);
 
-function AddReview({choosenFilms}: AddReviewProps): JSX.Element {
-  const filmId = Number(useParams().id);
-  const choosenFilm: FilmType | undefined = choosenFilms.find((film) => film.id === filmId);
+  useEffect(() => {
+    dispatch(fetchFilmData(filmId));
+    return () => {
+      dispatch(cleanFilmToShowData());
+      dispatch(cleanFilmLoadingStatus());
+    };
+  }, [dispatch, filmId]);
+
+  if(!isFilmLoaded) {
+    return (
+      <div style={{height: '100vh'}} className="page-content">
+        <Spinner />
+      </div>);
+  }
+
 
   if (choosenFilm === undefined ) {
     return <NotFoundPage/>;

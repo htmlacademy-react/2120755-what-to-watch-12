@@ -1,12 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import NotFoundPage from '../../../components/not-found/not-found';
-import { FilmType } from '../../../types';
+import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
 
-type DetailsProps = {
-  film: FilmType | undefined;
-};
+function Details(): JSX.Element {
+  const film = useSelector(filmToShowSelector);
 
-function Details({film}: DetailsProps): JSX.Element {
   function formatTime(totalMinutes: number ): string | null {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;

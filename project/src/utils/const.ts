@@ -5,7 +5,7 @@ const ApiRoutes = {
   Film: '/films/',
   PromoFilm: '/promo',
   LikedFilms: '/favorite',
-  FilmReview: '/comments/',
+  FilmReviews: '/comments/',
   Login: '/login',
   Logout: '/logout'
 };

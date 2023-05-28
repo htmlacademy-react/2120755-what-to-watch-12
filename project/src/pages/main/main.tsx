@@ -9,14 +9,19 @@ function Main(): JSX.Element {
   const isLoaded = useSelector(loadingStatusSelector);
 
   return (
-    <div>
-      <PromoFilm/>
-      <div className="page-content">
-        {isLoaded ? <Catalog/> : <Spinner/>}
-        <Footer/>
+    isLoaded ? (
+      <div>
+        <PromoFilm />
+        <div className="page-content">
+          <Catalog />
+          <Footer />
+        </div>
       </div>
-    </div>
+    ) : (
+      <div style={{height: '100vh'}} className="page-content">
+        <Spinner />
+      </div>
+    )
   );
 }
-
 export default Main;

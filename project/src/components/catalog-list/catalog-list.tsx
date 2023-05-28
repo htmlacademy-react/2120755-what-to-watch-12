@@ -3,7 +3,7 @@ import { FilmType } from '../../types';
 
 type CatalogListProps = {
   cardsToShow: FilmType[] | undefined;
-  amountToShow: number;
+  amountToShow: number | undefined;
 }
 
 function CatalogList({cardsToShow, amountToShow}: CatalogListProps): JSX.Element {
