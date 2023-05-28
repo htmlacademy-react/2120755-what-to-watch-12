@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Footer from '../../components/footer/footer';
@@ -17,11 +17,11 @@ import { filmLoadingStatusSelector } from '../../store/reducers/loading';
 import { AppDispatch } from '../../types/store';
 
 function Film(): JSX.Element {
-  // Запрос на ревью к фильму.
   const dispatch: AppDispatch = useDispatch();
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('Overview');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState('overview');
   const filmId = Number(useParams().id);
+  const tab = searchParams.get('tab');
   const choosenFilm = useSelector(filmToShowSelector);
   const similarFilms = useSelector(similarFilmsSelector);
   const isFilmLoaded = useSelector(filmLoadingStatusSelector);
@@ -36,26 +36,28 @@ function Film(): JSX.Element {
   }, [dispatch, filmId]);
 
   function handleTabChange(option: string) {
+    setSearchParams({tab: option});
     setActiveTab(option);
   }
 
-  function chooseTab(tab: string) {
-    if (tab === 'Overview') {
+  function chooseTab(choosenTab: string) {
+    if (choosenTab === 'overview') {
       return <Overview/>;
     }
-    if (tab === 'Details') {
-      navigate(`/films/${filmId}#details`);
+    if (choosenTab === 'details') {
       return <Details/>;
     }
-    if (tab === 'Reviews') {
-      navigate(`/films/${filmId}#reviews`);
+    if (choosenTab === 'reviews') {
       return <Reviews/>;
     }
   }
 
   useEffect(() => {
+    if (tab) {
+      setActiveTab(tab);
+    }
     chooseTab(activeTab);
-  }, [activeTab]);
+  }, [activeTab, tab]);
 
   if(!isFilmLoaded) {
     return (
@@ -79,7 +81,7 @@ function Film(): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <FilmNavigation onTabClick={handleTabChange}/>
+              <FilmNavigation activeTab={activeTab} onTabClick={handleTabChange}/>
               {chooseTab(activeTab)}
             </div>
           </div>
