@@ -1,7 +1,7 @@
 import { PayloadAction, createDraftSafeSelector, createSlice } from '@reduxjs/toolkit';
 import { FilmType } from '../../types';
 // import { mockFilmsLikly } from '../../mocks/mock-films-likly';
-import { fetchFilms, fetchPromoFilm, fetchUserFilms } from '../api-actions';
+import { fetchFilms, fetchPromoFilm, fetchUserFilms, logout } from '../api-actions';
 import { FilmsState, InitialState } from '../../types/store';
 
 const filmsInitialState: FilmsState = {
@@ -29,6 +29,9 @@ export const FilmsSlice = createSlice({
       })
       .addCase(fetchUserFilms.fulfilled, (state, action) => {
         state.myListFilms = action.payload;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.myListFilms = [];
       });
   },
 });

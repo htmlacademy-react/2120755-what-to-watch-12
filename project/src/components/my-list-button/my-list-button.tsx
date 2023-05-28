@@ -2,8 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../types/store';
 import { useEffect, useState } from 'react';
 import { myListFilmsSelector } from '../../store/reducers/films';
+import { authorizationSelector } from '../../store/reducers/authorization';
 import { postUserFilm } from '../../store/api-actions';
 import { FilmType } from '../../types';
+import { useNavigate } from 'react-router-dom';
 
 type MyListButtonProps = {
   targetFilm: FilmType | undefined;
@@ -12,7 +14,9 @@ type MyListButtonProps = {
 
 function MyListButton({targetFilm}: MyListButtonProps): JSX.Element {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const myListFilms = useSelector(myListFilmsSelector);
+  const authorized = useSelector(authorizationSelector);
   const [isAddToList, setIsAddedToList] = useState(false);
   const [myListCount, setMyListCount] = useState(0);
 
@@ -26,7 +30,10 @@ function MyListButton({targetFilm}: MyListButtonProps): JSX.Element {
   }, [myListFilms, targetFilm]);
 
   function handleMyListClick() {
-    if (!isAddToList) {
+    if (!authorized) {
+      navigate('/login');
+    }
+    else if (!isAddToList) {
       dispatch(postUserFilm({id: targetFilm?.id, status: 1}));
       setMyListCount(myListCount + 1);
     } else {
