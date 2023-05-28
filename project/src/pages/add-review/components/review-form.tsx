@@ -1,14 +1,20 @@
 import { useState, ChangeEvent, FormEvent, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { rating } from '../../../utils/data';
+import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
+import { postReview } from '../../../store/api-actions';
+import { AppDispatch } from '../../../types/store';
 
 function ReviewForm(): JSX.Element {
+  const dispatch: AppDispatch = useDispatch();
   const urlParams = useParams();
-  const offerId = Number(urlParams.id);
-  const [reviewData, setFormData] = useState({review: '', rating: '', id: offerId});
+  const filmId = Number(urlParams.id);
+  const [reviewData, setFormData] = useState({comment: '', rating: '', id: filmId});
   const [formDisabled, setFormDisabled] = useState(false);
   const [selectedRating, setSelectedRating] = useState('');
-  const formIsValidToSubmit = reviewData.review.length > 50 && reviewData.rating !== '';
+  const choosenFilm = useSelector(filmToShowSelector);
+  const formIsValidToSubmit = reviewData.comment.length > 50 && reviewData.rating !== '';
 
   const formFillHandle = (event: ChangeEvent<{ value: string; name: string }>) => {
     const { name, value } = event.target;
@@ -19,14 +25,16 @@ function ReviewForm(): JSX.Element {
   };
 
   const resetForm = () => {
-    setFormData({ review: '', rating: '', id: offerId });
+    setFormData({ comment: '', rating: '', id: filmId });
     setSelectedRating('');
   };
 
   const formSubmitHandle = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setFormDisabled(true);
-    // dispatch ревью.
+    // eslint-disable-next-line no-console
+    console.log(reviewData);
+    dispatch(postReview(reviewData));
     resetForm();
     setFormDisabled(false);
   };
@@ -55,13 +63,13 @@ function ReviewForm(): JSX.Element {
               </Fragment>))}
           </div>
         </div>
-        <div className="add-review__text">
+        <div className="add-review__text" style={{backgroundColor: choosenFilm?.backgroundColor, border: '2px solid gray'}}>
           <textarea
             className="add-review__textarea"
-            name="review"
-            id="review"
+            name="comment"
+            id="comment"
             placeholder="Review text"
-            value={reviewData.review}
+            value={reviewData.comment}
             onChange={formFillHandle}
             disabled={formDisabled}
           >

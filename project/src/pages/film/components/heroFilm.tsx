@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Header from '../../../components/header/header';
 import { FilmType } from '../../../types';
 import { myListFilmsSelector } from '../../../store/reducers/films';
+import { authorizationSelector } from '../../../store/reducers/authorization';
 
 
 type HeroFilmProps = {
@@ -11,6 +12,7 @@ type HeroFilmProps = {
 
 function HeroFilm({ choosenFilm }: HeroFilmProps): JSX.Element {
   const myListFilms = useSelector(myListFilmsSelector);
+  const authorized = useSelector(authorizationSelector);
   return (
     <div className="film-card__hero">
       <div className="film-card__bg">
@@ -40,7 +42,7 @@ function HeroFilm({ choosenFilm }: HeroFilmProps): JSX.Element {
               <span>My list</span>
               <span className="film-card__count">{myListFilms?.length}</span>
             </Link>
-            <Link to={`/films/${choosenFilm.id}/review`} className="btn film-card__button">Add review</Link>
+            {authorized ? <Link to={`/films/${choosenFilm.id}/review`} className="btn film-card__button">Add review</Link> : null}
           </div>
         </div>
       </div>

@@ -44,9 +44,9 @@ export type ReviewObjectType = {
 }
 
 export type ReviewType = {
-  id: number;
-  rating: number;
   comment: string;
+  rating: string;
+  id: number;
 }
 
 export type RatingNameType = {

@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { filmNavigationOptions } from '../../../utils/data';
 
 type TabsProps = {
@@ -10,9 +9,6 @@ function FilmNavigation({ onTabClick, activeTab = 'overview' }: TabsProps): JSX.
   function handleTabClick(option: string) {
     onTabClick(option.toLowerCase());
   }
-
-  // eslint-disable-next-line no-console
-  console.log(activeTab);
 
   return (
     <nav className="film-nav film-card__nav">

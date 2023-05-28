@@ -12,8 +12,8 @@ import NotFoundPage from '../../components/not-found/not-found';
 import Spinner from '../../components/spinner/spinner';
 import { AMOUNT_TO_SHOW_LIKLY } from '../../utils/const';
 import { fetchFilmData, fetchSimilarFilms, fetchFilmReviews } from '../../store/api-actions';
-import { filmToShowSelector, similarFilmsSelector, cleanFilmToShowData } from '../../store/reducers/chosenFilm';
-import { filmLoadingStatusSelector } from '../../store/reducers/loading';
+import { cleanFilmToShowData, filmToShowSelector, similarFilmsSelector } from '../../store/reducers/chosenFilm';
+import { filmLoadingStatusSelector, cleanFilmLoadingStatus } from '../../store/reducers/loading';
 import { AppDispatch } from '../../types/store';
 
 function Film(): JSX.Element {
@@ -32,6 +32,7 @@ function Film(): JSX.Element {
     dispatch(fetchFilmReviews(filmId));
     return () => {
       dispatch(cleanFilmToShowData());
+      dispatch(cleanFilmLoadingStatus());
     };
   }, [dispatch, filmId]);
 

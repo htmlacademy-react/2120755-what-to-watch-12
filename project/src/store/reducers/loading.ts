@@ -11,6 +11,9 @@ export const loadingSlice = createSlice({
   name: 'loading',
   initialState: loadingInitialState,
   reducers: {
+    cleanFilmLoadingStatus: (state) => {
+      state.isFilmLoaded = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -36,4 +39,5 @@ const filmLoadingStatusSelector = createDraftSafeSelector(
   (isLoaded: boolean) => isLoaded
 );
 
+export const { cleanFilmLoadingStatus } = loadingSlice.actions;
 export { loadingStatusSelector, filmLoadingStatusSelector };

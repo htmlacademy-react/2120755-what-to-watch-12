@@ -15,10 +15,9 @@ import { AppDispatch } from '../../types/store';
 
 type AppProps = {
   filmsToShow: FilmType[];
-  liklyFilmsToShow: FilmType[];
 };
 
-function App({ filmsToShow, liklyFilmsToShow }: AppProps): JSX.Element {
+function App({ filmsToShow }: AppProps): JSX.Element {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -42,7 +41,7 @@ function App({ filmsToShow, liklyFilmsToShow }: AppProps): JSX.Element {
       <Route path='/' element={<Main/>}/>
       {/* Добавь табы через аутлет, когда данные будут приходить из редакса */}
       <Route path='/films/:id' element={<Film/>}/>
-      <Route path='films/:id/review' element={<AddReview choosenFilms={filmsToShow}/>}/>
+      <Route path='films/:id/review' element={<AddReview/>}/>
       <Route path='/player/:id' element={<Player choosenFilms={filmsToShow}/>}/>
       <Route path='/login' element={<SignIn/>}/>
       <Route path='/*' element={<NotFoundPage/>}/>
