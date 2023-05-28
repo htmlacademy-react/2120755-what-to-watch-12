@@ -14,7 +14,7 @@ export type LoadingState = {
 export type FilmsState = {
   choosenGenre: string;
   initialFilms: FilmType[] | undefined;
-  myListFilms: FilmType[] | undefined;
+  myListFilms: FilmType[];
   promoFilm: FilmType | undefined;
 }
 

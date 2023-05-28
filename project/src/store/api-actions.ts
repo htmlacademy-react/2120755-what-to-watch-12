@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiRoutes } from '../utils/const';
 import { saveToken, removeToken } from '../utils/token';
-import { FilmType, UserData, LoginData, ReviewObjectType, ReviewType } from '../types';
+import { FilmType, UserData, LoginData, ReviewObjectType, ReviewType, FavoriteFilmType } from '../types';
 
 function createAsyncThunkTeamplate<ResultType, TargetType>() {
   return createAsyncThunk<
@@ -61,13 +61,14 @@ export const fetchUserFilms = createAsyncThunkTeamplate<FilmType[], undefined>()
   },
 );
 
-// export const postUserFilm = createAsyncThunkTeamplate<FilmType, undefined>()(
-//   'POST to /favorite/',
-//   async (_arg, {extra: api}) => {
-//     const {data} = await api.get<FilmType>(`${ApiRoutes.LikedFilms}/${id}/${isFavorite}`);
-//     return data;
-//   },
-// );
+export const postUserFilm = createAsyncThunkTeamplate<FilmType, FavoriteFilmType>()(
+  'POST to /favorite/',
+  async ({id, status}: FavoriteFilmType, {extra: api}) => {
+    const filmId = id !== undefined ? id : 0;
+    const {data} = await api.post<FilmType>(`${ApiRoutes.LikedFilms}/${filmId}/${status}`);
+    return data;
+  },
+);
 
 export const fetchFilmData = createAsyncThunkTeamplate<FilmType | undefined, number>()(
   'GET to /films/:id',
@@ -101,3 +102,4 @@ export const postReview = createAsyncThunkTeamplate<ReviewObjectType[], ReviewTy
     return data;
   },
 );
+

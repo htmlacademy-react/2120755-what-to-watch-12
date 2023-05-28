@@ -2,16 +2,16 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Header from '../../../components/header/header';
 import { FilmType } from '../../../types';
-import { myListFilmsSelector } from '../../../store/reducers/films';
 import { authorizationSelector } from '../../../store/reducers/authorization';
-
+import MyListButton from '../../../components/my-list-button/my-list-button';
+import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
 
 type HeroFilmProps = {
   choosenFilm: FilmType;
 };
 
 function HeroFilm({ choosenFilm }: HeroFilmProps): JSX.Element {
-  const myListFilms = useSelector(myListFilmsSelector);
+  const heroFilm = useSelector( filmToShowSelector);
   const authorized = useSelector(authorizationSelector);
   return (
     <div className="film-card__hero">
@@ -35,13 +35,7 @@ function HeroFilm({ choosenFilm }: HeroFilmProps): JSX.Element {
               </svg>
               <span>Play</span>
             </Link>
-            <Link to='/mylist' className="btn btn--list film-card__button" type="button">
-              <svg viewBox="0 0 19 20" width="19" height="20">
-                <use xlinkHref="#add"></use>
-              </svg>
-              <span>My list</span>
-              <span className="film-card__count">{myListFilms?.length}</span>
-            </Link>
+            <MyListButton targetFilm={heroFilm}/>
             {authorized ? <Link to={`/films/${choosenFilm.id}/review`} className="btn film-card__button">Add review</Link> : null}
           </div>
         </div>
