@@ -32,8 +32,6 @@ function ReviewForm(): JSX.Element {
   const formSubmitHandle = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setFormDisabled(true);
-    // eslint-disable-next-line no-console
-    console.log(reviewData);
     dispatch(postReview(reviewData));
     resetForm();
     setFormDisabled(false);
