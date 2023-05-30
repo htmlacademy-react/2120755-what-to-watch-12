@@ -10,14 +10,9 @@ import SignIn from '../../pages/signin/signin';
 import NotFoundPage from '../not-found/not-found';
 import ProtectedRoute from '../protected-route/protected-route';
 import { fetchFilms, fetchPromoFilm, fetchUserFilms, checkAuthAction } from '../../store/api-actions';
-import { FilmType } from '../../types';
 import { AppDispatch } from '../../types/store';
 
-type AppProps = {
-  filmsToShow: FilmType[];
-};
-
-function App({ filmsToShow }: AppProps): JSX.Element {
+function App(): JSX.Element {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -39,10 +34,9 @@ function App({ filmsToShow }: AppProps): JSX.Element {
         }
       />
       <Route path='/' element={<Main/>}/>
-      {/* Добавь табы через аутлет, когда данные будут приходить из редакса */}
       <Route path='/films/:id' element={<Film/>}/>
       <Route path='films/:id/review' element={<AddReview/>}/>
-      <Route path='/player/:id' element={<Player choosenFilms={filmsToShow}/>}/>
+      <Route path='/player/:id' element={<Player/>}/>
       <Route path='/login' element={<SignIn/>}/>
       <Route path='/*' element={<NotFoundPage/>}/>
     </Routes>

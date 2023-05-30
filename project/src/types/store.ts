@@ -9,12 +9,13 @@ export type AuthorizationState = {
 export type LoadingState = {
   isLoaded: boolean;
   isFilmLoaded: boolean;
+  isFavoriteFilmsLoaded: boolean;
 }
 
 export type FilmsState = {
   choosenGenre: string;
   initialFilms: FilmType[] | undefined;
-  myListFilms: FilmType[] | undefined;
+  myListFilms: FilmType[];
   promoFilm: FilmType | undefined;
 }
 

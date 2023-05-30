@@ -11,7 +11,6 @@ function CardPlayer({ preview, trailer, play }: CardPlayerProps): JSX.Element {
 
   useEffect(() => {
     const videoElement = videoRef.current;
-
     if (play && videoElement) {
       const timeout = setTimeout(() => {
         videoElement.play();

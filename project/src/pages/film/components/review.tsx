@@ -1,3 +1,4 @@
+import { formatDateForFilmReviews } from '../../../utils/calculationFunctions';
 import { ReviewObjectType } from '../../../types';
 
 type ReviewProps = {
@@ -9,13 +10,6 @@ function Review({review}: ReviewProps): JSX.Element | null{
     return null;
   }
 
-  const date = new Date(review.date);
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    day: 'numeric',
-    month: 'long',
-  });
-
   return (
     <div className="review">
       <blockquote className="review__quote">
@@ -23,7 +17,7 @@ function Review({review}: ReviewProps): JSX.Element | null{
 
         <footer className="review__details">
           <cite className="review__author">{review.user.name}</cite>
-          <time className="review__date" dateTime={review.date}> { formatter.format(date) }</time>
+          <time className="review__date" dateTime={review.date}> { formatDateForFilmReviews(review.date)}</time>
         </footer>
       </blockquote>
 

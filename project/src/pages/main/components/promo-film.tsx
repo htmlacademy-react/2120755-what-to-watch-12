@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Header from '../../../components/header/header';
-import { myListFilmsSelector, promoFilmSelector } from '../../../store/reducers/films';
+import { promoFilmSelector } from '../../../store/reducers/films';
+import MyListButton from '../../../components/my-list-button/my-list-button';
 
 function PromoFilm(): JSX.Element | null {
-  const myListFilms = useSelector(myListFilmsSelector);
   const promoFilm = useSelector(promoFilmSelector);
 
   if (promoFilm === undefined) {
@@ -36,13 +36,7 @@ function PromoFilm(): JSX.Element | null {
                 </svg>
                 <span>Play</span>
               </Link>
-              <Link to='/mylist' className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-                <span className="film-card__count">{myListFilms?.length}</span>
-              </Link>
+              <MyListButton targetFilm={promoFilm}/>
             </div>
           </div>
         </div>

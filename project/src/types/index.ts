@@ -52,3 +52,8 @@ export type ReviewType = {
 export type RatingNameType = {
   [key: number]: string;
 };
+
+export type FavoriteFilmType = {
+  id: number | undefined;
+  status: number;
+}
