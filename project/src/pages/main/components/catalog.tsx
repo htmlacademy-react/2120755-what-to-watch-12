@@ -13,6 +13,7 @@ function Catalog(): JSX.Element | null{
   const filmsToDisplayOnMain = useSelector(filmsOfTargetGenreSelector);
 
   useEffect(() => {
+    dispatch(changeGenre('All genres'));
     setAmountToShowOnMain(INITIAL_AMOUNT_TO_SHOW_MAIN);
   }, []);
 

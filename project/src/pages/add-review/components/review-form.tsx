@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent, Fragment } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { rating } from '../../../utils/data';
 import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
@@ -7,6 +7,7 @@ import { postReview } from '../../../store/api-actions';
 import { AppDispatch } from '../../../types/store';
 
 function ReviewForm(): JSX.Element {
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const urlParams = useParams();
   const filmId = Number(urlParams.id);
@@ -35,6 +36,8 @@ function ReviewForm(): JSX.Element {
     dispatch(postReview(reviewData));
     resetForm();
     setFormDisabled(false);
+    navigate(`/films/${filmId}?tab=reviews`);
+    // добавить тост об успешном посте.
   };
 
   return (

@@ -9,6 +9,7 @@ export type AuthorizationState = {
 export type LoadingState = {
   isLoaded: boolean;
   isFilmLoaded: boolean;
+  isFavoriteFilmsLoaded: boolean;
 }
 
 export type FilmsState = {

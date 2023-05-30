@@ -43,9 +43,8 @@ function SignInForm(): JSX.Element {
   }
 
   useEffect(() => {
-
     if (authorized) {
-      navigate('/');
+      navigate('/', {replace: true});
     }
     return () => {
       setIsValid({email: true, password: true});

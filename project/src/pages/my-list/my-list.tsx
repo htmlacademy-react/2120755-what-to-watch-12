@@ -2,19 +2,34 @@ import { useSelector } from 'react-redux';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import Spinner from '../../components/spinner/spinner';
 import { myListFilmsSelector } from '../../store/reducers/films';
+import { favoriteFilmsLoadingStatusSelector, cleanFavoriteFilmsLoadingStatus } from '../../store/reducers/loading';
 import { useEffect } from 'react';
 import { AppDispatch } from '../../types/store';
 import { useDispatch } from 'react-redux';
 import { fetchUserFilms } from '../../store/api-actions';
 
+
 function MyList(): JSX.Element {
   const dispatch: AppDispatch = useDispatch();
   const userFilms = useSelector(myListFilmsSelector);
+  const isFavoriteLoaded = useSelector(favoriteFilmsLoadingStatusSelector);
 
   useEffect(() => {
+    dispatch(cleanFavoriteFilmsLoadingStatus());
     dispatch(fetchUserFilms());
+    return () => {
+      dispatch(cleanFavoriteFilmsLoadingStatus());
+    };
   }, [dispatch]);
+
+  if(!isFavoriteLoaded) {
+    return (
+      <div style={{height: '100vh'}} className="page-content">
+        <Spinner />
+      </div>);
+  }
 
   return (
     <div className="user-page">
