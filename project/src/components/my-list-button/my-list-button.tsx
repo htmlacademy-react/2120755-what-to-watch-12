@@ -6,6 +6,7 @@ import { authorizationSelector } from '../../store/reducers/authorization';
 import { postUserFilm } from '../../store/api-actions';
 import { FilmType } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 type MyListButtonProps = {
   targetFilm: FilmType | undefined;
@@ -32,6 +33,11 @@ function MyListButton({targetFilm}: MyListButtonProps): JSX.Element {
   function handleMyListClick() {
     if (!authorized) {
       navigate('/login');
+      toast.info('You must be logged in to gain access.', {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: 3,
+        theme: 'dark'
+      });
     }
     else if (!isAddToList) {
       dispatch(postUserFilm({id: targetFilm?.id, status: 1}));

@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, FormEvent, Fragment } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { rating } from '../../../utils/data';
 import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
 import { postReview } from '../../../store/api-actions';
@@ -37,7 +38,14 @@ function ReviewForm(): JSX.Element {
     resetForm();
     setFormDisabled(false);
     navigate(`/films/${filmId}?tab=reviews`);
-    // добавить тост об успешном посте.
+    toast.success(
+      'As you see your review has been published! 😃',
+      {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: 2,
+        autoClose: 2500,
+        theme: 'dark'
+      });
   };
 
   return (
