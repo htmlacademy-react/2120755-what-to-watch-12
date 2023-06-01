@@ -1,8 +1,7 @@
 import { PayloadAction, createDraftSafeSelector, createSlice } from '@reduxjs/toolkit';
-import { FilmType } from '../../types';
-// import { mockFilmsLikly } from '../../mocks/mock-films-likly';
 import { fetchFilms, fetchPromoFilm, fetchUserFilms, logout } from '../api-actions';
 import { FilmsState, InitialState } from '../../types/store';
+import { FilmType } from '../../types';
 
 const filmsInitialState: FilmsState = {
   choosenGenre: 'All genres',
@@ -43,7 +42,7 @@ const selectPromoFilm = (state: InitialState) => state.films.promoFilm;
 
 const filmsSelector = createDraftSafeSelector(
   selectFilms,
-  (initialFilms: FilmType[] | undefined) => initialFilms
+  (initialFilms: FilmType[]) => initialFilms
 );
 
 const myListFilmsSelector = createDraftSafeSelector(
@@ -54,18 +53,17 @@ const myListFilmsSelector = createDraftSafeSelector(
 const filmsOfTargetGenreSelector = createDraftSafeSelector(
   selectFilms,
   selectGenre,
-  (initialFilms: FilmType[] | undefined, chosenGenre: string) => {
+  (initialFilms: FilmType[], chosenGenre: string) => {
     if (chosenGenre === 'All genres') {
       return initialFilms;
     }
-    return initialFilms?.filter(({ genre }) => genre === chosenGenre);
+    return initialFilms.filter(({ genre }) => genre === chosenGenre);
   }
 );
 const promoFilmSelector = createDraftSafeSelector(
   selectPromoFilm,
   (promoFilm: FilmType | undefined) => promoFilm
 );
-
 
 export const { changeGenre } = FilmsSlice.actions;
 export { filmsSelector, myListFilmsSelector, filmsOfTargetGenreSelector, promoFilmSelector };

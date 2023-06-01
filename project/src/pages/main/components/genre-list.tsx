@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { genreSorter } from '../../../utils/genreSorter';
 import { filmsSelector } from '../../../store/reducers/films';
 
-
 type GenreListProps = {
   onGenreClick: (genre: string) => void;
 }
@@ -21,7 +20,6 @@ function GenreList({onGenreClick}: GenreListProps): JSX.Element {
       setChoosenGenre(choosen);
       onGenreClick(choosen);
     }
-
   }
 
   return (

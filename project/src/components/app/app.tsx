@@ -23,7 +23,6 @@ function App(): JSX.Element {
   }, [dispatch]);
 
   return(
-
     <Routes>
       <Route
         path='/mylist'
@@ -45,7 +44,6 @@ function App(): JSX.Element {
       <Route path='/login' element={<SignIn/>}/>
       <Route path='/*' element={<NotFoundPage/>}/>
     </Routes>
-
   );
 
 

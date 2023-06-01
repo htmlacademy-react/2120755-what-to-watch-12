@@ -2,7 +2,7 @@ import { useEffect, useRef} from 'react';
 
 type CardPlayerProps = {
   preview: string;
-  trailer: string | undefined;
+  trailer: string;
   play: boolean;
 };
 

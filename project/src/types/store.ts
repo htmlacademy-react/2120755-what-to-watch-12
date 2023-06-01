@@ -14,15 +14,15 @@ export type LoadingState = {
 
 export type FilmsState = {
   choosenGenre: string;
-  initialFilms: FilmType[] | undefined;
+  initialFilms: FilmType[];
   myListFilms: FilmType[];
   promoFilm: FilmType | undefined;
 }
 
 export type ChosenFilmState = {
   filmToShow: FilmType | undefined;
-  similarFilms: FilmType[] | undefined;
-  filmReviews: ReviewObjectType[] | undefined;
+  similarFilms: FilmType[];
+  filmReviews: ReviewObjectType[];
 }
 
 export type InitialState = {

@@ -82,14 +82,14 @@ export const fetchFilmData = createAsyncThunkTeamplate<FilmType | undefined, num
     }
   });
 
-export const fetchSimilarFilms = createAsyncThunkTeamplate<FilmType[]| undefined, number>()(
+export const fetchSimilarFilms = createAsyncThunkTeamplate<FilmType[], number>()(
   'GET to /films/:id/similar',
   async (id, {extra: api}) => {
     const {data} = await api.get<FilmType[]>(`${ApiRoutes.Film}${id}/similar`);
     return data;
   });
 
-export const fetchFilmReviews = createAsyncThunkTeamplate<ReviewObjectType[] | undefined, number>()(
+export const fetchFilmReviews = createAsyncThunkTeamplate<ReviewObjectType[], number>()(
   'GET to /comments/:id',
   async (id, {extra: api}) => {
     const {data} = await api.get<ReviewObjectType[]>(`${ApiRoutes.FilmReviews}${id}`);

@@ -6,7 +6,7 @@ type CardProps = {
   name: string;
   preview: string;
   id: number;
-  trailer: string | undefined;
+  trailer: string;
 }
 
 function Card({name, preview, id, trailer}: CardProps) {

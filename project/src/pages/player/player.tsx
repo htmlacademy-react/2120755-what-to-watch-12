@@ -1,6 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import NotFoundPage from '../../components/not-found/not-found';
+import Spinner from '../../components/spinner/spinner';
 import { filmToShowSelector } from '../../store/reducers/chosenFilm';
 import { SECONDS_IN_MINUTE, PLAYBACK_STEP } from '../../utils/const';
 import { presentageCalculator, formatTimeForPlayer } from '../../utils/calculation-functions';
@@ -8,8 +10,6 @@ import { fetchFilmData } from '../../store/api-actions';
 import { cleanFilmToShowData } from '../../store/reducers/chosenFilm';
 import { cleanFilmLoadingStatus, filmLoadingStatusSelector } from '../../store/reducers/loading';
 import { AppDispatch } from '../../types/store';
-import { useDispatch, useSelector } from 'react-redux';
-import Spinner from '../../components/spinner/spinner';
 
 function Player(): JSX.Element {
   const dispatch: AppDispatch = useDispatch();
