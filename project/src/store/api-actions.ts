@@ -1,5 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import { ApiRoutes } from '../utils/const';
 import { saveToken, removeToken } from '../utils/token';
 import { FilmType, UserData, LoginData, ReviewObjectType, ReviewType, FavoriteFilmType } from '../types';
@@ -99,6 +100,14 @@ export const postReview = createAsyncThunkTeamplate<ReviewObjectType[], ReviewTy
   'POST to /comments/:id',
   async ({comment, rating, id}: ReviewType, {extra: api}) => {
     const {data} = await api.post<ReviewObjectType[]>(`${ApiRoutes.FilmReviews}${id}`, {comment, rating});
+    toast.success(
+      'As you see your review has been published! 😃',
+      {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: 2,
+        autoClose: 2500,
+        theme: 'dark'
+      });
     return data;
   },
 );

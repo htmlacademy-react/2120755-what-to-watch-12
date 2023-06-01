@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import NotFoundPage from '../../../components/not-found/not-found';
 import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
-import { formatTimeForFilmDetails } from '../../../utils/calculationFunctions';
+import { formatTimeForFilmDetails } from '../../../utils/calculation-functions';
 
 function Details(): JSX.Element {
   const film = useSelector(filmToShowSelector);

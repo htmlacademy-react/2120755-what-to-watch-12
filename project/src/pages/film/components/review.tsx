@@ -1,4 +1,4 @@
-import { formatDateForFilmReviews } from '../../../utils/calculationFunctions';
+import { formatDateForFilmReviews } from '../../../utils/calculation-functions';
 import { ReviewObjectType } from '../../../types';
 
 type ReviewProps = {

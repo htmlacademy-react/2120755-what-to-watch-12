@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import NotFoundPage from '../../components/not-found/not-found';
 import { filmToShowSelector } from '../../store/reducers/chosenFilm';
 import { SECONDS_IN_MINUTE, PLAYBACK_STEP } from '../../utils/const';
-import { presentageCalculator, formatTimeForPlayer } from '../../utils/calculationFunctions';
+import { presentageCalculator, formatTimeForPlayer } from '../../utils/calculation-functions';
 import { fetchFilmData } from '../../store/api-actions';
 import { cleanFilmToShowData } from '../../store/reducers/chosenFilm';
 import { cleanFilmLoadingStatus, filmLoadingStatusSelector } from '../../store/reducers/loading';
@@ -19,9 +19,9 @@ function Player(): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [playbackPosition, setPlaybackPosition] = useState(0);
+  const [timeLeft, setTimeleft] = useState(0);
   const totalRuntime = (choosenFilm?.runTime ?? 0) * SECONDS_IN_MINUTE;
   const tooglerPosition = presentageCalculator(playbackPosition, totalRuntime);
-  const filmTimeFormat = formatTimeForPlayer(choosenFilm?.runTime);
 
   useEffect(() => {
     dispatch(fetchFilmData(filmId));
@@ -30,6 +30,10 @@ function Player(): JSX.Element {
       dispatch(cleanFilmLoadingStatus());
     };
   }, [dispatch, filmId]);
+
+  useEffect(() => {
+    setTimeleft(totalRuntime - playbackPosition);
+  }, [playbackPosition, totalRuntime]);
 
   useEffect(() => {
     let playback: NodeJS.Timeout | null = null;
@@ -96,7 +100,7 @@ function Player(): JSX.Element {
             <progress className="player__progress" value={playbackPosition} max={totalRuntime}></progress>
             <div className="player__toggler" style={{left: `${tooglerPosition}%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">{filmTimeFormat}</div>
+          <div className="player__time-value">{formatTimeForPlayer(timeLeft)}</div>
         </div>
         <div className="player__controls-row">
           <button onClick={handlePlayClick} type="button" className="player__play">

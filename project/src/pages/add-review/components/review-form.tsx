@@ -1,7 +1,6 @@
 import { useState, ChangeEvent, FormEvent, Fragment } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { rating } from '../../../utils/data';
 import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
 import { postReview } from '../../../store/api-actions';
@@ -16,7 +15,7 @@ function ReviewForm(): JSX.Element {
   const [formDisabled, setFormDisabled] = useState(false);
   const [selectedRating, setSelectedRating] = useState('');
   const choosenFilm = useSelector(filmToShowSelector);
-  const formIsValidToSubmit = reviewData.comment.length > 50 && reviewData.rating !== '';
+  const formIsValidToSubmit = reviewData.comment.length > 50 && reviewData.comment.length < 400 && reviewData.rating !== '';
 
   const formFillHandle = (event: ChangeEvent<{ value: string; name: string }>) => {
     const { name, value } = event.target;
@@ -38,14 +37,6 @@ function ReviewForm(): JSX.Element {
     resetForm();
     setFormDisabled(false);
     navigate(`/films/${filmId}?tab=reviews`);
-    toast.success(
-      'As you see your review has been published! 😃',
-      {
-        position: toast.POSITION.TOP_CENTER,
-        toastId: 2,
-        autoClose: 2500,
-        theme: 'dark'
-      });
   };
 
   return (

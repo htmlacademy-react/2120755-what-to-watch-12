@@ -1,24 +1,30 @@
+import { SECONDS_IN_HOUR, SECONDS_IN_MINUTE } from './const';
+
 export function presentageCalculator(a: number, b: number) {
   const presentage = a / b * 100;
   return presentage;
 }
 
-export function formatTimeForPlayer(totalMinutes: number | undefined ): string | null {
-  if (totalMinutes === undefined) {
+export function formatTimeForPlayer(totalSeconds: number | undefined): string | null {
+  if (totalSeconds === undefined) {
     return null;
   }
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  const seconds = Math.floor((totalMinutes % 1) * 60);
-  const paddedHours = hours.toString().padStart(2);
+  const hours = Math.floor(totalSeconds / SECONDS_IN_HOUR);
+  const minutes = Math.floor((totalSeconds % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);
+  const seconds = totalSeconds % SECONDS_IN_MINUTE;
+  const paddedHours = hours.toString().padStart(2, '0');
   const paddedMinutes = minutes.toString().padStart(2, '0');
   const paddedSeconds = seconds.toString().padStart(2, '0');
-  return `${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
+  if (hours <= 0) {
+    return `${paddedMinutes}:${paddedSeconds}`;
+  } else {
+    return `${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
+  }
 }
 
 export function formatTimeForFilmDetails(totalMinutes: number ): string | null {
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
+  const hours = Math.floor(totalMinutes / SECONDS_IN_MINUTE);
+  const minutes = totalMinutes % SECONDS_IN_MINUTE;
   const paddedHours = hours > 0 ? `${hours}h ` : '';
   const paddedMinutes = `${minutes.toString().padStart(2, '0') }m`;
   return `${paddedHours}${paddedMinutes}`;

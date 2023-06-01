@@ -35,6 +35,7 @@ export const createAPI = (): AxiosInstance => {
           toast.info(error.response.data.error, {
             position: toast.POSITION.TOP_CENTER,
             toastId: 1,
+            delay: 6000,
             theme: 'dark'
           });
         }
