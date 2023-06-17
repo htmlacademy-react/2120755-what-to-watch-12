@@ -50,7 +50,7 @@ function AddReview(): JSX.Element {
                 <Link to={`/films/${choosenFilm.id}`} className="breadcrumbs__link">{choosenFilm.name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <a href={`/films/${choosenFilm.id}/review`} className="breadcrumbs__link">Add review</a>
               </li>
             </ul>
           </nav>

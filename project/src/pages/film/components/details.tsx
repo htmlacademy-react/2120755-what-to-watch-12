@@ -1,15 +1,14 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import NotFoundPage from '../../../components/not-found/not-found';
 import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
-import { formatTimeForFilmDetails } from '../../../utils/calculationFunctions';
+import { formatTimeForFilmDetails } from '../../../utils/calculation-functions';
 
-function Details(): JSX.Element {
+function Details(): JSX.Element | null {
   const film = useSelector(filmToShowSelector);
   const runTime = formatTimeForFilmDetails(film?.runTime ?? 0);
 
   if (film === undefined) {
-    return <NotFoundPage/>;
+    return null;
   }
 
   return (
@@ -23,10 +22,10 @@ function Details(): JSX.Element {
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
             {film.starring.map((actor, index) => (
-              <React.Fragment key={actor}>
+              <Fragment key={actor}>
                 {actor}
                 {index < film.starring.length - 1 && <br />}
-              </React.Fragment>
+              </Fragment>
             ))}
           </span>
         </p>

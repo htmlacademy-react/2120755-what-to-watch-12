@@ -1,5 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import { ApiRoutes } from '../utils/const';
 import { saveToken, removeToken } from '../utils/token';
 import { FilmType, UserData, LoginData, ReviewObjectType, ReviewType, FavoriteFilmType } from '../types';
@@ -81,14 +82,14 @@ export const fetchFilmData = createAsyncThunkTeamplate<FilmType | undefined, num
     }
   });
 
-export const fetchSimilarFilms = createAsyncThunkTeamplate<FilmType[]| undefined, number>()(
+export const fetchSimilarFilms = createAsyncThunkTeamplate<FilmType[], number>()(
   'GET to /films/:id/similar',
   async (id, {extra: api}) => {
     const {data} = await api.get<FilmType[]>(`${ApiRoutes.Film}${id}/similar`);
     return data;
   });
 
-export const fetchFilmReviews = createAsyncThunkTeamplate<ReviewObjectType[] | undefined, number>()(
+export const fetchFilmReviews = createAsyncThunkTeamplate<ReviewObjectType[], number>()(
   'GET to /comments/:id',
   async (id, {extra: api}) => {
     const {data} = await api.get<ReviewObjectType[]>(`${ApiRoutes.FilmReviews}${id}`);
@@ -99,6 +100,14 @@ export const postReview = createAsyncThunkTeamplate<ReviewObjectType[], ReviewTy
   'POST to /comments/:id',
   async ({comment, rating, id}: ReviewType, {extra: api}) => {
     const {data} = await api.post<ReviewObjectType[]>(`${ApiRoutes.FilmReviews}${id}`, {comment, rating});
+    toast.success(
+      'As you see your review has been published! 😃',
+      {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: 2,
+        autoClose: 2500,
+        theme: 'dark'
+      });
     return data;
   },
 );

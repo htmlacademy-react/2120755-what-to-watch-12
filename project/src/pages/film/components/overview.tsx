@@ -1,13 +1,12 @@
 import { useSelector } from 'react-redux';
-import NotFoundPage from '../../../components/not-found/not-found';
 import { ratingName } from '../../../utils/data';
 import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
 
-function Overview(): JSX.Element {
+function Overview(): JSX.Element | null {
   const film = useSelector(filmToShowSelector);
 
   if (film === undefined) {
-    return <NotFoundPage/>;
+    return null;
   }
 
   return (

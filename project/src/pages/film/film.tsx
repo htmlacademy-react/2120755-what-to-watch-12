@@ -42,15 +42,12 @@ function Film(): JSX.Element {
   }
 
   function chooseTab(choosenTab: string) {
-    if (choosenTab === 'overview') {
-      return <Overview/>;
-    }
-    if (choosenTab === 'details') {
-      return <Details/>;
-    }
-    if (choosenTab === 'reviews') {
-      return <Reviews/>;
-    }
+    const TabComponent = {
+      overview: Overview,
+      details: Details,
+      reviews: Reviews,
+    }[choosenTab];
+    return TabComponent && <TabComponent />;
   }
 
   useEffect(() => {

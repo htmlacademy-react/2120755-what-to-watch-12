@@ -5,8 +5,8 @@ import { FilmType, ReviewObjectType} from '../../types';
 
 const chosenOffersInitialState: ChosenFilmState = {
   filmToShow: undefined,
-  similarFilms: undefined,
-  filmReviews: undefined,
+  similarFilms: [],
+  filmReviews: [],
 };
 
 export const chosenFilmSlice = createSlice({
@@ -15,8 +15,8 @@ export const chosenFilmSlice = createSlice({
   reducers: {
     cleanFilmToShowData: (state) => {
       state.filmToShow = undefined;
-      state.similarFilms = undefined;
-      state.filmReviews = undefined;
+      state.similarFilms = [];
+      state.filmReviews = [];
     },
   },
   extraReducers: (builder) => {
@@ -49,7 +49,7 @@ const filmToShowSelector = createDraftSafeSelector(
 const similarFilmsSelector = createDraftSafeSelector(
   selectSimilarFilms,
   selectFilmToShow,
-  (similarFilms: FilmType[] | undefined, filmToShow: FilmType | undefined ) => similarFilms?.filter((film) => film.id !== filmToShow?.id)
+  (similarFilms: FilmType[], filmToShow: FilmType | undefined ) => similarFilms?.filter((film) => film.id !== filmToShow?.id)
 );
 
 const filmReviewsSelector = createDraftSafeSelector(

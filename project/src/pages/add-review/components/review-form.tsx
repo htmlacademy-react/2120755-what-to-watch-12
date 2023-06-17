@@ -15,7 +15,7 @@ function ReviewForm(): JSX.Element {
   const [formDisabled, setFormDisabled] = useState(false);
   const [selectedRating, setSelectedRating] = useState('');
   const choosenFilm = useSelector(filmToShowSelector);
-  const formIsValidToSubmit = reviewData.comment.length > 50 && reviewData.rating !== '';
+  const formIsValidToSubmit = reviewData.comment.length > 50 && reviewData.comment.length < 400 && reviewData.rating !== '';
 
   const formFillHandle = (event: ChangeEvent<{ value: string; name: string }>) => {
     const { name, value } = event.target;
@@ -37,7 +37,6 @@ function ReviewForm(): JSX.Element {
     resetForm();
     setFormDisabled(false);
     navigate(`/films/${filmId}?tab=reviews`);
-    // добавить тост об успешном посте.
   };
 
   return (

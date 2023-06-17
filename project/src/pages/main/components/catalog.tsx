@@ -25,7 +25,7 @@ function Catalog(): JSX.Element | null{
     dispatch(changeGenre(choosen));
   }
 
-  if (filmsToDisplayOnMain === undefined) {
+  if (filmsToDisplayOnMain.length < 0) {
     return <p style={{padding: '100px 100px', textAlign: 'center'}}>Sorry, no movies availible at the moment. Please return later</p>;
   }
 

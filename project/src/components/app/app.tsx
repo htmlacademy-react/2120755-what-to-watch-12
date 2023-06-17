@@ -23,7 +23,6 @@ function App(): JSX.Element {
   }, [dispatch]);
 
   return(
-
     <Routes>
       <Route
         path='/mylist'
@@ -33,14 +32,18 @@ function App(): JSX.Element {
           />
         }
       />
+      <Route path='films/:id/review' element={
+        <ProtectedRoute
+          element={<AddReview/>}
+        />
+      }
+      />
       <Route path='/' element={<Main/>}/>
       <Route path='/films/:id' element={<Film/>}/>
-      <Route path='films/:id/review' element={<AddReview/>}/>
       <Route path='/player/:id' element={<Player/>}/>
       <Route path='/login' element={<SignIn/>}/>
       <Route path='/*' element={<NotFoundPage/>}/>
     </Routes>
-
   );
 
 
