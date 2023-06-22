@@ -4,7 +4,7 @@ import { UserData } from '../../types';
 import { InitialState, AuthorizationState } from '../../types/store';
 
 const initialAuthorizationState: AuthorizationState = {
-  authorized: false,
+  authorized: undefined,
   userData: undefined,
 };
 
@@ -41,7 +41,7 @@ const selectUserData = (state: InitialState ) => state.authorization.userData;
 
 const authorizationSelector = createDraftSafeSelector(
   selectAuthorization,
-  (authorized: boolean) => authorized
+  (authorized: boolean | undefined) => authorized
 );
 
 const userDataSelector = createDraftSafeSelector(
