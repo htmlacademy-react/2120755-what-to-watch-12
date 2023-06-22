@@ -16,9 +16,9 @@ export function formatTimeForPlayer(totalSeconds: number | undefined): string | 
   const paddedMinutes = minutes.toString().padStart(2, '0');
   const paddedSeconds = seconds.toString().padStart(2, '0');
   if (hours <= 0) {
-    return `${paddedMinutes}:${paddedSeconds}`;
+    return `-${paddedMinutes}:${paddedSeconds}`;
   } else {
-    return `${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
+    return `-${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
   }
 }
 

@@ -2,7 +2,7 @@ import {store} from '../store';
 import { FilmType, ReviewObjectType, UserData } from './index';
 
 export type AuthorizationState = {
-  authorized: boolean;
+  authorized: boolean | undefined;
   userData: UserData | undefined;
 }
 
@@ -10,6 +10,7 @@ export type LoadingState = {
   isLoaded: boolean;
   isFilmLoaded: boolean;
   isFavoriteFilmsLoaded: boolean;
+  isReviewUploaded: boolean | undefined;
 }
 
 export type FilmsState = {

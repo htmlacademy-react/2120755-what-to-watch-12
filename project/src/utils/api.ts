@@ -26,16 +26,17 @@ export const createAPI = (): AxiosInstance => {
     (error: AxiosError<{error: string}>) => {
       if (error.response) {
         const status = error.response.status;
-        if (status === 400) {
-          toast.error(error.response.data.error, {
+        if (status === 401) {
+          toast.info('Please, register to access all site features.', {
             position: toast.POSITION.TOP_CENTER,
+            delay: 6000,
             toastId: 2,
+            theme: 'dark'
           });
         } else {
-          toast.info(error.response.data.error, {
+          toast.error(error.response.data.error, {
             position: toast.POSITION.TOP_CENTER,
             toastId: 1,
-            delay: 6000,
             theme: 'dark'
           });
         }

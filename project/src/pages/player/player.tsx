@@ -10,11 +10,15 @@ import { fetchFilmData } from '../../store/api-actions';
 import { cleanFilmToShowData } from '../../store/reducers/chosenFilm';
 import { cleanFilmLoadingStatus, filmLoadingStatusSelector } from '../../store/reducers/loading';
 import { AppDispatch } from '../../types/store';
+import { filmsSelector, promoFilmSelector } from '../../store/reducers/films';
+import NotAvailible from '../../components/not-available/not-available';
 
 function Player(): JSX.Element {
   const dispatch: AppDispatch = useDispatch();
   const choosenFilm = useSelector(filmToShowSelector);
   const isFilmLoaded = useSelector(filmLoadingStatusSelector);
+  const promo = useSelector(promoFilmSelector);
+  const films = useSelector(filmsSelector);
   const filmId = Number(useParams().id);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -71,6 +75,9 @@ function Player(): JSX.Element {
     return <NotFoundPage/>;
   }
 
+  if (isFilmLoaded && !promo && films.length === 0) {
+    return <NotAvailible/>;
+  }
 
   function handlePlayClick() {
     const videoElement = videoRef.current;

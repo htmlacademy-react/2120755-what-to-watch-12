@@ -1,6 +1,3 @@
-import TheGrandBudapestHotelBackground from '../img/bg-the-grand-budapest-hotel.jpg';
-import TheGrandBudapestHotelPoster from '../img/the-grand-budapest-hotel-poster.jpg';
-
 export const mockFilms = [
   {
     'name': 'War of the Worlds',
@@ -579,10 +576,3 @@ export const mockFilms = [
   }
 ];
 
-export const mockFilmCard = {
-  'name': 'The Grand Budapest Hotel',
-  'backgroundImage':TheGrandBudapestHotelBackground,
-  'posterImage': TheGrandBudapestHotelPoster,
-  'genre': 'Drama',
-  'released': 2014,
-};
