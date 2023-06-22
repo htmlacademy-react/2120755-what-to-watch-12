@@ -29,7 +29,7 @@ export const authorizationSlice = createSlice({
         state.authorized = false;
       })
       .addCase(logout.fulfilled, (state) => {
-        state.authorized = false;
+        state.authorized = undefined;
         state.userData = undefined;
       });
   },

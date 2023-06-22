@@ -1,9 +1,5 @@
 import { RatingNameType } from '../types';
 
-const genres: string[] = [
-  'All genres', 'Comedies', 'Crime', 'Documentary', 'Dramas', 'Horror', 'Kids & Family', 'Romance', 'Sci-Fi', 'Thrillers'
-];
-
 const rating = {
   1:'Rating 1',
   2:'Rating 2',
@@ -41,7 +37,6 @@ const locationToClassMap = {
 };
 
 export {
-  genres,
   rating,
   ratingName,
   filmNavigationOptions,

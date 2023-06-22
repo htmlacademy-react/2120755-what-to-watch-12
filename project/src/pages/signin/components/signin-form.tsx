@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../../../store/api-actions';
 import { AppDispatch } from '../../../types/store';
 import { authorizationSelector } from '../../../store/reducers/authorization';
-import { PASSWORD_PATERN, EMAIL_PATERN } from '../../../utils/const';
-
+import { PASSWORD_PATTERN, EMAIL_PATTERN } from '../../../utils/const';
 
 function SignInForm(): JSX.Element {
   const dispatch: AppDispatch = useDispatch();
@@ -21,11 +20,11 @@ function SignInForm(): JSX.Element {
   }
 
   function validateInputs (email: string, password: string) {
-    if (!email.match(EMAIL_PATERN)) {
+    if (!email.match(EMAIL_PATTERN)) {
       setErrorMessage('Please enter a valid email address');
       setIsValid({email: false, password: true});
     }
-    else if (!password.match(PASSWORD_PATERN)) {
+    else if (!password.match(PASSWORD_PATTERN)) {
       setErrorMessage('Password should contain at least 1 letter and 1 digit');
       setIsValid({email: true, password: false});
     }

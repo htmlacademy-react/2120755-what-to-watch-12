@@ -5,6 +5,7 @@ import { rating } from '../../../utils/data';
 import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
 import { reviewUploadingStatusSelector, cleanReviewUploadingStatus } from '../../../store/reducers/loading';
 import { postReview } from '../../../store/api-actions';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../../utils/const';
 import { AppDispatch } from '../../../types/store';
 
 function ReviewForm(): JSX.Element {
@@ -18,7 +19,7 @@ function ReviewForm(): JSX.Element {
   const [selectedRating, setSelectedRating] = useState('');
   const choosenFilm = useSelector(filmToShowSelector);
   const reviewUploaded = useSelector(reviewUploadingStatusSelector);
-  const formIsValidToSubmit = reviewData.comment.length > 50 && reviewData.comment.length < 400 && reviewData.rating !== '';
+  const formIsValidToSubmit = reviewData.comment.length > MIN_COMMENT_LENGTH && reviewData.comment.length < MAX_COMMENT_LENGTH && reviewData.rating !== '';
 
   useEffect(() => () => {
     dispatch(cleanReviewUploadingStatus());
@@ -42,7 +43,7 @@ function ReviewForm(): JSX.Element {
     }
   }, [reviewUploaded]);
 
-  const formFillHandle = (event: ChangeEvent<{ value: string; name: string }>) => {
+  const handleFormFill = (event: ChangeEvent<{ value: string; name: string }>) => {
     const { name, value } = event.target;
     setFormData({ ...reviewData, [name]: value });
     if (name === 'rating') {
@@ -50,7 +51,7 @@ function ReviewForm(): JSX.Element {
     }
   };
 
-  const formSubmitHandle = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setInputsDisabled(true);
     setFormSubmitDisabled(true);
@@ -59,7 +60,7 @@ function ReviewForm(): JSX.Element {
 
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form" onSubmit={formSubmitHandle}>
+      <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
         <div className="rating">
           <div className="rating__stars">
             {Object.entries(rating).reverse().map(([key, value]) => (
@@ -70,7 +71,7 @@ function ReviewForm(): JSX.Element {
                   type="radio"
                   name="rating" value={key}
                   checked={selectedRating === key}
-                  onChange={formFillHandle}
+                  onChange={handleFormFill}
                   disabled={formInputsDisabled}
                 />
                 <label
@@ -88,7 +89,7 @@ function ReviewForm(): JSX.Element {
             id="comment"
             placeholder="Review text"
             value={reviewData.comment}
-            onChange={formFillHandle}
+            onChange={handleFormFill}
             disabled={formInputsDisabled}
           >
           </textarea>
