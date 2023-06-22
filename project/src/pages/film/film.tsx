@@ -10,11 +10,14 @@ import Overview from './components/overview';
 import Reviews from './components/reviews';
 import NotFoundPage from '../../components/not-found/not-found';
 import Spinner from '../../components/spinner/spinner';
+import NotAvailible from '../../components/not-available/not-available';
 import { AMOUNT_TO_SHOW_LIKLY } from '../../utils/const';
 import { fetchFilmData, fetchSimilarFilms, fetchFilmReviews } from '../../store/api-actions';
 import { cleanFilmToShowData, filmToShowSelector, similarFilmsSelector } from '../../store/reducers/chosenFilm';
 import { filmLoadingStatusSelector, cleanFilmLoadingStatus } from '../../store/reducers/loading';
+import { filmsSelector, promoFilmSelector } from '../../store/reducers/films';
 import { AppDispatch } from '../../types/store';
+
 
 function Film(): JSX.Element {
   const dispatch: AppDispatch = useDispatch();
@@ -25,6 +28,8 @@ function Film(): JSX.Element {
   const choosenFilm = useSelector(filmToShowSelector);
   const similarFilms = useSelector(similarFilmsSelector);
   const isFilmLoaded = useSelector(filmLoadingStatusSelector);
+  const promo = useSelector(promoFilmSelector);
+  const films = useSelector(filmsSelector);
 
   useEffect(() => {
     dispatch(fetchFilmData(filmId));
@@ -66,6 +71,10 @@ function Film(): JSX.Element {
 
   if (choosenFilm === undefined) {
     return <NotFoundPage/>;
+  }
+
+  if (isFilmLoaded && !promo && films.length === 0) {
+    return <NotAvailible/>;
   }
 
   return (

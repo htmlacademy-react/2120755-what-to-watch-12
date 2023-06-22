@@ -23,6 +23,7 @@ function Catalog(): JSX.Element | null{
 
   function handleChoosenGenre(choosen: string) {
     dispatch(changeGenre(choosen));
+    setAmountToShowOnMain(INITIAL_AMOUNT_TO_SHOW_MAIN);
   }
 
   if (filmsToDisplayOnMain.length < 0) {

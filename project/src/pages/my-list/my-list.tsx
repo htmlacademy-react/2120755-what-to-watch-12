@@ -5,15 +5,20 @@ import CatalogList from '../../components/catalog-list/catalog-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Spinner from '../../components/spinner/spinner';
-import { myListFilmsSelector } from '../../store/reducers/films';
+import NotAvailible from '../../components/not-available/not-available';
+import { filmsSelector, myListFilmsSelector, promoFilmSelector } from '../../store/reducers/films';
 import { favoriteFilmsLoadingStatusSelector, cleanFavoriteFilmsLoadingStatus } from '../../store/reducers/loading';
 import { AppDispatch } from '../../types/store';
 import { fetchUserFilms } from '../../store/api-actions';
+
 
 function MyList(): JSX.Element {
   const dispatch: AppDispatch = useDispatch();
   const userFilms = useSelector(myListFilmsSelector);
   const isFavoriteLoaded = useSelector(favoriteFilmsLoadingStatusSelector);
+  const promo = useSelector(promoFilmSelector);
+  const films = useSelector(filmsSelector);
+
 
   useEffect(() => {
     dispatch(cleanFavoriteFilmsLoadingStatus());
@@ -28,6 +33,10 @@ function MyList(): JSX.Element {
       <div style={{height: '100vh'}} className="page-content">
         <Spinner />
       </div>);
+  }
+
+  if (isFavoriteLoaded && !promo && films.length === 0) {
+    return <NotAvailible/>;
   }
 
   return (

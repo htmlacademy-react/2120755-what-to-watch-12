@@ -1,9 +1,11 @@
-import { useState, ChangeEvent, FormEvent, Fragment } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, ChangeEvent, FormEvent, Fragment, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { rating } from '../../../utils/data';
 import { filmToShowSelector } from '../../../store/reducers/chosenFilm';
+import { reviewUploadingStatusSelector, cleanReviewUploadingStatus } from '../../../store/reducers/loading';
 import { postReview } from '../../../store/api-actions';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../../utils/const';
 import { AppDispatch } from '../../../types/store';
 
 function ReviewForm(): JSX.Element {
@@ -12,12 +14,36 @@ function ReviewForm(): JSX.Element {
   const urlParams = useParams();
   const filmId = Number(urlParams.id);
   const [reviewData, setFormData] = useState({comment: '', rating: '', id: filmId});
-  const [formDisabled, setFormDisabled] = useState(false);
+  const [formInputsDisabled, setInputsDisabled] = useState(false);
+  const [formSubmitDisabled, setFormSubmitDisabled] = useState(true);
   const [selectedRating, setSelectedRating] = useState('');
   const choosenFilm = useSelector(filmToShowSelector);
-  const formIsValidToSubmit = reviewData.comment.length > 50 && reviewData.comment.length < 400 && reviewData.rating !== '';
+  const reviewUploaded = useSelector(reviewUploadingStatusSelector);
+  const formIsValidToSubmit = reviewData.comment.length > MIN_COMMENT_LENGTH && reviewData.comment.length < MAX_COMMENT_LENGTH && reviewData.rating !== '';
 
-  const formFillHandle = (event: ChangeEvent<{ value: string; name: string }>) => {
+  useEffect(() => () => {
+    dispatch(cleanReviewUploadingStatus());
+    setFormData({ comment: '', rating: '', id: filmId });
+    setSelectedRating('');
+  }, [filmId, dispatch]);
+
+  useEffect(() => {
+    if (formIsValidToSubmit) {
+      setFormSubmitDisabled(false);
+    }
+  }, [formIsValidToSubmit]);
+
+  useEffect(() => {
+    if(reviewUploaded === true) {
+      navigate(`/films/${filmId}?tab=reviews`);
+    } if (reviewUploaded === false) {
+      setInputsDisabled(false);
+      setFormSubmitDisabled(false);
+      dispatch(cleanReviewUploadingStatus());
+    }
+  }, [reviewUploaded]);
+
+  const handleFormFill = (event: ChangeEvent<{ value: string; name: string }>) => {
     const { name, value } = event.target;
     setFormData({ ...reviewData, [name]: value });
     if (name === 'rating') {
@@ -25,23 +51,16 @@ function ReviewForm(): JSX.Element {
     }
   };
 
-  const resetForm = () => {
-    setFormData({ comment: '', rating: '', id: filmId });
-    setSelectedRating('');
-  };
-
-  const formSubmitHandle = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setFormDisabled(true);
+    setInputsDisabled(true);
+    setFormSubmitDisabled(true);
     dispatch(postReview(reviewData));
-    resetForm();
-    setFormDisabled(false);
-    navigate(`/films/${filmId}?tab=reviews`);
   };
 
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form" onSubmit={formSubmitHandle}>
+      <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
         <div className="rating">
           <div className="rating__stars">
             {Object.entries(rating).reverse().map(([key, value]) => (
@@ -52,8 +71,8 @@ function ReviewForm(): JSX.Element {
                   type="radio"
                   name="rating" value={key}
                   checked={selectedRating === key}
-                  onChange={formFillHandle}
-                  disabled={formDisabled}
+                  onChange={handleFormFill}
+                  disabled={formInputsDisabled}
                 />
                 <label
                   className="rating__label"
@@ -70,15 +89,15 @@ function ReviewForm(): JSX.Element {
             id="comment"
             placeholder="Review text"
             value={reviewData.comment}
-            onChange={formFillHandle}
-            disabled={formDisabled}
+            onChange={handleFormFill}
+            disabled={formInputsDisabled}
           >
           </textarea>
           <div className="add-review__submit">
             <button
               className="add-review__btn"
               type="submit"
-              disabled={!formIsValidToSubmit}
+              disabled={formSubmitDisabled}
             >Post
             </button>
           </div>
